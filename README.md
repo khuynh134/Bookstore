@@ -5,9 +5,7 @@ A React web application built with Vite for managing bookstore inventory with na
 ## Features
 
 - Home page with welcome content
-- About page with company information
-- React Router for navigation between pages
-- Responsive design with custom styling
+- About page 
 
 ## Getting Started
 
