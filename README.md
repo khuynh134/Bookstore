@@ -1,16 +1,62 @@
-# React + Vite
+# Bookstore Inventory - React Web Application
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A React web application built with Vite for managing bookstore inventory with navigation between pages.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Home page with welcome content
+- About page with company information
+- React Router for navigation between pages
+- Responsive design with custom styling
 
-## React Compiler
+## Getting Started
 
-The React Compiler is not enabled on this template. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### Prerequisites
+- Node.js installed on your machine
 
-## Expanding the ESLint configuration
+### Installation
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+1. Clone the repository:
+```bash
+git clone https://github.com/khuynh134/Bookstore-inventory-.git
+cd Bookstore-inventory-
+```
+
+2. Install dependencies:
+```bash
+npm install
+```
+
+3. Start the development server:
+```bash
+npm run dev
+```
+
+4. Open your browser and visit `http://localhost:5173`
+
+## Project Structure
+
+```
+src/
+├── App.jsx (main app with routing)
+├── main.jsx (entry point)
+├── pages/
+│   ├── Home.jsx (home page)
+│   ├── About.jsx (about page)
+│   ├── Home.css (home page styles)
+│   └── About.css (about page styles)
+└── App.css (global styles)
+```
+
+## Technologies Used
+
+- React 18
+- Vite (build tool)
+- React Router DOM (for routing)
+- CSS3 (for styling)
+
+## Available Scripts
+
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm run preview` - Preview production build
