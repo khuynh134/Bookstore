@@ -1,0 +1,30 @@
+.home-container{
+    display:flex;
+    flex-direction: column;
+    background-color: #fcb0b0;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    margin: 0 auto;
+    max-width: 800px;
+    width: 100%;
+
+
+}
+
+.home-title {
+    color: pink;
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    text-align: center;
+    font-weight: bold;
+}
+
+.home-description {
+    font-size: 1.2rem;
+    color: #d025b6;
+    text-align: center;
+    font-weight: bold;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+}
