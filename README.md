@@ -37,7 +37,7 @@ npm run dev
 ```
 src/
 ├── App.jsx (main app with routing)
-├── main.jsx (entry point)
+├── main.jsx 
 ├── pages/
 │   ├── Home.jsx (home page)
 │   ├── About.jsx (about page)
