@@ -64,6 +64,26 @@ body {
   transform: translateY(-2px);
 }
 
+.profile-link {
+  display: flex; 
+  align-items: center;
+  gap : 0.55rem;
+}
+
+.home-icon-link{
+  display: flex; 
+  align-items: center;
+  gap : 0.55rem;
+}
+
+.material-symbols-outlined {
+  font-variation-settings: 
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 48;
+}
+
 .app-footer {
   background-color: #DFA8A3;
   color: white;

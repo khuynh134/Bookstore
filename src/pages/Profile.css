@@ -1,0 +1,23 @@
+.profile-page{
+    flex:1 ;
+    padding: 1.5rem;
+    background-color: #F0D9D0;
+}
+
+.profile-title{
+    color: #DFA8A3;
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    text-align: center;
+    font-weight: bold;
+    font-family: 'Newsreader', serif;
+}
+
+.profile-user-info{
+    font-size: 1.2rem;
+    color: #A45A52;
+    text-align: left;
+    font-weight: normal;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+}
