@@ -20,9 +20,22 @@
     font-weight: bold;
 }
 
+.parallax {
+  background-image: url("/stack-of-books-photo.jpg"); 
+  min-height: 500px;
+  background-attachment: fixed;
+  background-position: center bottom;
+  background-repeat: no-repeat;
+  background-size: cover;
+  
+  max-width: 1650px;
+  margin: 0 auto;
+}
+
+
 .home-description {
     font-size: 1.2rem;
-    color: #d025b6;
+    color: #3025d0;
     text-align: center;
     font-weight: bold;
     line-height: 1.6;
