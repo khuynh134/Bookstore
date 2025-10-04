@@ -2,7 +2,8 @@ import './About.css';
 import aboutImage from '../assets/aboutusbookstack.jpeg';
 function About() {
     return (
-        <><div className="about-container">
+    
+            <div className="about-container">
             <h1 className="About-title">About Us </h1>
 
             <div className="about-content">
@@ -16,7 +17,11 @@ function About() {
                 <img src={aboutImage} alt="About Us Image" className="about-image" />
 
             </div>
-        </div><footer className="page-footer"> © 2025 Bookstore. All rights reserved.</footer></>
+        </div>
+       
+
+   
+       
     );
 }
 

@@ -27,6 +27,11 @@ function App() {
             <Route path="/about" element={<About />} />
           </Routes>
         </main>
+
+        {/* Footer */}
+        <footer className="app-footer">
+          2025 All Rights Reserved 
+        </footer>
       </div>
     </BrowserRouter>
     

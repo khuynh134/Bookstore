@@ -1,5 +1,6 @@
+
 .about-container {
-    flex: 1 2 100px;
+    flex: 1;
     padding: 1.5rem;
     width: 100%;
     box-sizing: border-box;

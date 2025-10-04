@@ -64,6 +64,18 @@ body {
   transform: translateY(-2px);
 }
 
+.app-footer {
+  background-color: #DFA8A3;
+  color: white;
+  text-align: center;
+  padding: 1.5rem;
+  font-size: 1rem; 
+  font-weight: 500;
+  margin-top: auto;
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+
+}
+
 /*Main content container */
 .main-content {
   flex: 1; 
