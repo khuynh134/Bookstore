@@ -5,6 +5,8 @@ import './App.css'
 import Home from './pages/Home';
 import About from './pages/About';
 import Profile from './pages/Profile';
+import SearchResult from './pages/SearchResult';
+import SearchBar from './components/SearchBar';
 
 function App() {
   return (
@@ -16,6 +18,9 @@ function App() {
             <h2>Bookstore </h2>
           </div>
           <div className="nav-links">
+            <div className='nav-link'>
+              <SearchBar></SearchBar>
+            </div>
             <Link to="/" className="nav-link home-icon-link">
               <span className="material-symbols-outlined">home_app_logo</span>
               Home
@@ -34,6 +39,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />
             <Route path="/profile" element={<Profile />} />
+            <Route path="/s/:query" element={<SearchResult/>} />
           </Routes>
         </main>
 
