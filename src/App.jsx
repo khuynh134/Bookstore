@@ -2,26 +2,25 @@ import React, { useEffect, useRef } from 'react';
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import './App.css'
 
-// Import page components 
+
 import Home from './pages/Home';
 import About from './pages/About';
 import Profile from './pages/Profile';
 
 function App() {
-  const navRef = useRef(null); // 👈 reference to the navbar
-
+  const navRef = useRef(null); 
   useEffect(() => {
     const nav = navRef.current;
     if (!nav) return;
 
-    const factor = 0.25; // 👈 controls how much the navbar lags behind scroll
+    const factor = 0.25; //  controls how much the navbar lags behind scroll
     let ticking = false;
 
     const onScroll = () => {
       const offset = window.scrollY * factor;
       if (!ticking) {
         requestAnimationFrame(() => {
-          nav.style.transform = `translateY(${offset}px)`; // 👈 move the navbar
+          nav.style.transform = `translateY(${offset}px)`; //  move the navbar
           ticking = false;
         });
         ticking = true;
