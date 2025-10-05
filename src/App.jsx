@@ -1,3 +1,4 @@
+import React, { useEffect, useRef } from 'react';
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import './App.css'
 
@@ -7,7 +8,31 @@ import About from './pages/About';
 import Profile from './pages/Profile';
 
 function App() {
+  const navRef = useRef(null); // 👈 reference to the navbar
+
+  useEffect(() => {
+    const nav = navRef.current;
+    if (!nav) return;
+
+    const factor = 0.25; // 👈 controls how much the navbar lags behind scroll
+    let ticking = false;
+
+    const onScroll = () => {
+      const offset = window.scrollY * factor;
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          nav.style.transform = `translateY(${offset}px)`; // 👈 move the navbar
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
   return (
+    
     <BrowserRouter>
       <div className="app-container">
         {/* Navigation Bar */}
