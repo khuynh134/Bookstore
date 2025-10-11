@@ -1,3 +1,14 @@
+.home-container{
+    display:flex;
+    flex-direction: column;
+    background-color: #ffffff;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    margin: 0 auto;
+    max-width: 1000px;
+    width: 100%;}
+
 .parallax {
   background-image: url(https://www.theyoungfolks.com/wp-content/uploads/2021/09/October-2021.png); 
   min-height: 350px;
@@ -11,19 +22,10 @@
 }
 
 
-.home-container{
-    display:flex;
-    flex-direction: column;
-    background-color: #ce3131;
-    padding: 2rem;
-    border-radius: 12px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-    margin: 0 auto;
-    max-width: 800px;
-    width: 100%;
 
 
-}
+
+
 
 .home-title {
     color: black;
@@ -44,3 +46,43 @@
     line-height: 1.6;
     margin-bottom: 2rem;
 }
+
+.tile-container{
+    display: grid;
+    grid-template-columns: repeat(2, minmax(600px,1fr));
+    gap: 60px;
+    justify-items:center;
+    }
+    .tile {
+    width: 100%;
+    margin:0;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    padding: 25px;
+    text-align: center;
+    font-family: Arial, sans-serif;
+    max-width:500px;
+    width:100%
+    }
+    .tile-img {
+        width: 500px;
+        height: 300px;
+        object-fit: fill;
+        border-radius: 8px;
+        margin-bottom: 15px;
+        display: block;
+      }
+
+      .butn {
+        background: #86ed32; /* purple like your screenshot */
+        color: #fff;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 6px;
+        font-size: 0.9rem;
+        cursor: pointer;
+        transition: background 0.3s ease;
+        }
+        .butn:hover {
+        background: #3b3b41;}
