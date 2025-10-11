@@ -46,26 +46,29 @@ export default function SearchResult(){
         )
     }
     return (
-        <div className='search-result-container'>
+        <div>
             <h2 className='result-title'>Search Result for "{keyword}"</h2>
-            <table className='result-table'>
-                <tr>
-                    <th className='table-header'>BookID</th>
-                    <th className='table-header'>Title</th>
-                    <th className='table-header'>ISBN</th>
-                    <th className='table-header'>Price</th>
-                </tr>
+            <div className='search-result-container'>
                 {result.map(book => {
+                    let cover_url = book.BookCoverURL;
+                    if (cover_url == null){
+                        cover_url = "/book_covers/no_cover.png"
+                    }
                     return (
-                        <tr className='book-row'>
-                            <th className='table-data'>{book.BookID}</th>
-                            <th className='table-data'>{book.Title}</th>
-                            <th className='table-data'>{book.ISBN}</th>
-                            <th className='table-data'>${book.Price}</th>
-                        </tr>
-                    )
+                        <div className='book'>
+                            <img src={cover_url}/>
+                            <div className='book-info'>
+                                <h4 className='book-title'>{book.Title}</h4>
+                                <p className='book-title'>ID: {book.BookID}</p>
+                                <p className='book-title'>ISBN: {book.ISBN}</p>
+                                <p className='book-price'>${book.Price}</p>
+                                <button>Add to Cart</button>
+                            </div>
+                        </div>
+                    );
                 })}
-                </table>
+                
+            </div>
         </div>
     );
 }

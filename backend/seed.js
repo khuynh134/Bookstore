@@ -23,12 +23,13 @@ db.query(`CREATE TABLE IF NOT EXISTS Book
     ISBN BIGINT NOT NULL,
     Price DEC(10,2) NOT NULL,
     Stock INT,
+    BookCoverURL VARCHAR(100) DEFAULT NULL,
     PRIMARY KEY(BookID),
     UNIQUE(ISBN))`);
-db.query(`INSERT INTO Book (BookID, Title, ISBN, Price, Stock)
+db.query(`INSERT INTO Book (BookID, Title, ISBN, Price, Stock, BookCoverURL)
     VALUES 
-    (1, 'The Complete Novel of Sherlock Holmes', 0553328255, 7.89, 3),
-    (2, 'The Kite Runner', 9781594631931, 8.31, 5)
+    (1, 'The Complete Novel of Sherlock Holmes', 9780553328257, 7.89, 3, '/book_covers/9780553328257.jpg'),
+    (2, 'The Kite Runner', 9781594631931, 8.31, 5, NULL)
     `);
 db.commit()
 console.log("Done")
