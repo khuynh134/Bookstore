@@ -33,42 +33,42 @@ export default function SearchResult(){
     if(isLoading) {
         return (
             <div>
-                <h2>Searching for {keyword}, please wait ...</h2>
+                <h2>Searching for "{keyword}"", please wait ...</h2>
             </div>
         );
     }
     if(result.length == 0){
         return (
-            <div>
-                <h2>Search Result for {keyword}</h2>
-                <h2>No result found</h2>
+            <div className='search-result-container'>
+                <h2 className='result-title'>Search Result for "{keyword}"</h2>
+                <h2 className='result-title'>No result found</h2>
             </div>
         )
     }
     return (
-        <div className='search-result-page'>
-            <h2 className="search-title">Search Result for {keyword}</h2>
-            <table>
-                <tr>
-                    <th className="result-table-title">BookID</th>
-                    <th className="result-table-title">Title</th>
-                    <th className="result-table-title">ISBN</th>
-                    <th className="result-table-title">Price</th>
-                </tr>
+        <div>
+            <h2 className='result-title'>Search Result for "{keyword}"</h2>
+            <div className='search-result-container'>
                 {result.map(book => {
+                    let cover_url = book.BookCoverURL;
+                    if (cover_url == null){
+                        cover_url = "/book_covers/no_cover.png"
+                    }
                     return (
-                        
-                        <tr>
-                            <th className="result-id">{book.BookID}</th>
-                            <th className="result-book-info">{book.Title}</th>
-                            <th className="result-book-info">{book.ISBN}</th>
-                            <th className="result-book-info">{book.Price}</th>
-                        </tr>
-                        
-                    )
-
+                        <div className='book'>
+                            <img src={cover_url}/>
+                            <div className='book-info'>
+                                <h4 className='book-title'>{book.Title}</h4>
+                                <p className='book-title'>ID: {book.BookID}</p>
+                                <p className='book-title'>ISBN: {book.ISBN}</p>
+                                <p className='book-price'>${book.Price}</p>
+                                <button>Add to Cart</button>
+                            </div>
+                        </div>
+                    );
                 })}
-                </table>
+                
+            </div>
         </div>
     );
 }

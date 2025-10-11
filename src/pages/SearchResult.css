@@ -1,48 +1,60 @@
-.search-result-page {
-    padding: 2rem; 
-    background-color: #F0D9D0;
-    margin: 0 auto; 
+*{
     box-sizing: border-box;
 }
 
-.search-title {
-    color: #DFA8A3;
-    font-size: 1.5rem;
-    margin-bottom: 1rem;
-    text-align: center;
-    font-weight: bold; 
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-
+.result-title{
+    padding: 5px;
+    background-color: #DFA8A3;
+    border: 2px outset #d0b9b0ff;
+    color: white;
 }
 
-.result-card {
-    display: flex; 
+.search-result-container{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 5px;
+    gap: 5px;
+    width: 100%;
+    margin: 0 auto;
+    background-color: #f0d9d0ee;
+}
+
+.book{
+    display: flex;
+    width: 100%;
+    max-width: 500px;
+    height: 300px;
+    border-radius: 5px;
+}
+
+.book:hover{
+    background-color: #e0b9b0ee;
+}
+
+.book img{
+    height: 100%;
+    width: 40%;
+    padding: 5px;
+    object-fit: contain;
+}
+
+.book-info{
+    display: flex;
     flex-direction: column;
-    background-color: #fff;
-    padding: 1rem;
-    box-shadow: 0 6px 15px rgba(0,0,0,0.09);
-    align-items: start;
+    padding: 5px;
+    height: 100%;
+    width: 60%;
+    text-align: left;
+    justify-content: center;
 }
 
-.result-id {
-    color: #DFA8A3;
-    font-weight: bold;
-    font-size: 1.2rem;
-    margin-bottom: 0.5rem;
+.book-price{
+    text-align: right;
 }
-
-.result-book-info {
-    font-size: 1.2rem;
-    font-weight: bold;
-    margin: 0.5rem 0;
-    color: #DFA8A3;
-    padding: 0.2rem 0.5rem;
-    border-radius: 4px;
-    margin-bottom: 0.5rem;
-}
-
-.result-table-title{
-    font-size: 1.3rem;
-    font-weight: bold;
-    color: #DFA8A3;
+.book button{
+    float: bottom;
+    padding: 5px;
 }
