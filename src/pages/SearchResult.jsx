@@ -46,24 +46,27 @@ export default function SearchResult(){
         )
     }
     return (
-        <div className='search-result-container'>
-            <h2>Search Result for {keyword}.</h2>
+        <div className='search-result-page'>
+            <h2 className="search-title">Search Result for {keyword}</h2>
             <table>
                 <tr>
-                    <th>BookID</th>
-                    <th>Title</th>
-                    <th>ISBN</th>
-                    <th>Price</th>
+                    <th className="result-table-title">BookID</th>
+                    <th className="result-table-title">Title</th>
+                    <th className="result-table-title">ISBN</th>
+                    <th className="result-table-title">Price</th>
                 </tr>
                 {result.map(book => {
                     return (
+                        
                         <tr>
-                            <th>{book.BookID}</th>
-                            <th>{book.Title}</th>
-                            <th>{book.ISBN}</th>
-                            <th>{book.Price}</th>
+                            <th className="result-id">{book.BookID}</th>
+                            <th className="result-book-info">{book.Title}</th>
+                            <th className="result-book-info">{book.ISBN}</th>
+                            <th className="result-book-info">{book.Price}</th>
                         </tr>
+                        
                     )
+
                 })}
                 </table>
         </div>
