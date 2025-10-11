@@ -21,3 +21,63 @@
     line-height: 1.6;
     margin-bottom: 1.5rem;
 }
+
+.profile-info-header{
+    font-size: 1.5rem;
+    font-weight: 850;
+    margin-bottom: 1rem;
+    color: #7A3C37;
+    border-bottom: 2px solid #DFA8A3;
+    padding-bottom: 0.5rem;
+    font-family: 'Newsreader', serif;
+    text-align: left;
+    margin-top: 2rem;
+    font-style: italic;
+}
+
+.info-row{
+    display: flex;
+    gap: 1rem;
+    align-items: left;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid rgba(104, 35, 35, 0.09);
+}
+
+.info-label{
+    min-width:6rem;
+    font-weight:700;
+    color: #7A3C37;
+}
+
+.info-value{
+    color:#5A2F2B;
+    background:#fff7f6;
+    padding:0.4rem 0.6rem;
+    border-radius:6px;
+}
+
+.user-info{
+    margin-top: 2rem;
+}
+
+.edit-profile-button{
+    background-color: #DFA8A3;
+    color: white;
+    border: 1px solid #b38778;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+.edit-profile-button:hover {
+    background-color: #c78b86;
+}
+
+.no-orders-message{
+    font-size: 1.5rem;
+    color: #A45A52;
+    font-style: italic;
+    margin-top: 1rem;
+}

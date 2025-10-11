@@ -1,6 +1,6 @@
 .parallax {
-  background-image: url("/stack-of-books-photo.jpg"); 
-  min-height: 500px;
+  background-image: url(https://www.theyoungfolks.com/wp-content/uploads/2021/09/October-2021.png); 
+  min-height: 350px;
   background-attachment: fixed;
   background-position: center bottom;
   background-repeat: no-repeat;
@@ -14,7 +14,7 @@
 .home-container{
     display:flex;
     flex-direction: column;
-    background-color: #e2af80;
+    background-color: #ce3131;
     padding: 2rem;
     border-radius: 12px;
     box-shadow: 0 4px 20px rgba(0,0,0,0.1);
@@ -26,7 +26,7 @@
 }
 
 .home-title {
-    color: pink;
+    color: black;
     font-size: 2.5rem;
     margin-bottom: 1rem;
     text-align: center;
@@ -38,7 +38,7 @@
 
 .home-description {
     font-size: 1.2rem;
-    color: #25d05e;
+    color: black;
     text-align: center;
     font-weight: bold;
     line-height: 1.6;
