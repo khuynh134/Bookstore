@@ -111,3 +111,7 @@ body {
   box-sizing: border-box;
 }
 
+.book-title {
+    font-weight: bold; 
+    color: #DFA8A3;
+}

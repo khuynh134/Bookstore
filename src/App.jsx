@@ -8,6 +8,7 @@ import About from './pages/About';
 import Profile from './pages/Profile';
 import SearchResult from './pages/SearchResult';
 import SearchBar from './components/SearchBar';
+import Cart from './pages/Cart';
 
 function App() {
   const navRef = useRef(null); 
@@ -54,6 +55,10 @@ function App() {
               <span className="material-symbols-outlined">account_circle</span>
               Profile
             </Link>
+            <Link to="/cart" className="nav-link">
+              <span className="material-symbols-outlined">shopping_cart</span>
+              Cart
+            </Link>
           </div>
         </nav>
 
@@ -64,6 +69,7 @@ function App() {
             <Route path="/about" element={<About />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/s/:keyword" element={<SearchResult/>} />
+            <Route path="/cart" element={<Cart />} />
           </Routes>
         </main>
 
