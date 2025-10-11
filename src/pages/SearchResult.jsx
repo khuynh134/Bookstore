@@ -33,35 +33,35 @@ export default function SearchResult(){
     if(isLoading) {
         return (
             <div>
-                <h2>Searching for {keyword}, please wait ...</h2>
+                <h2>Searching for "{keyword}"", please wait ...</h2>
             </div>
         );
     }
     if(result.length == 0){
         return (
-            <div>
-                <h2>Search Result for {keyword}</h2>
-                <h2>No result found</h2>
+            <div className='search-result-container'>
+                <h2 className='result-title'>Search Result for "{keyword}"</h2>
+                <h2 className='result-title'>No result found</h2>
             </div>
         )
     }
     return (
         <div className='search-result-container'>
-            <h2>Search Result for {keyword}.</h2>
-            <table>
+            <h2 className='result-title'>Search Result for "{keyword}"</h2>
+            <table className='result-table'>
                 <tr>
-                    <th>BookID</th>
-                    <th>Title</th>
-                    <th>ISBN</th>
-                    <th>Price</th>
+                    <th className='table-header'>BookID</th>
+                    <th className='table-header'>Title</th>
+                    <th className='table-header'>ISBN</th>
+                    <th className='table-header'>Price</th>
                 </tr>
                 {result.map(book => {
                     return (
-                        <tr>
-                            <th>{book.BookID}</th>
-                            <th>{book.Title}</th>
-                            <th>{book.ISBN}</th>
-                            <th>{book.Price}</th>
+                        <tr className='book-row'>
+                            <th className='table-data'>{book.BookID}</th>
+                            <th className='table-data'>{book.Title}</th>
+                            <th className='table-data'>{book.ISBN}</th>
+                            <th className='table-data'>${book.Price}</th>
                         </tr>
                     )
                 })}

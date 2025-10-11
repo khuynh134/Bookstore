@@ -1,0 +1,31 @@
+.search-result-container{
+    padding: 1.5rem;
+    flex: 1;
+    width: 100%;
+    box-sizing: border-box;
+    background-color: #f0d9d0ee;
+}
+
+.result-title{
+    padding: 5px;
+    background-color: #DFA8A3;
+    border: 2px outset #d0b9b0ff;
+    color: white;
+}
+
+.result-table{
+    padding: 5px;
+    border: 2px outset #d0b9b0ff;
+    color: black;
+    text-align: left;
+    width: 100%;
+}
+
+.book-row, .table-header{
+    background-color: #f0d9d0ee;
+    border: none
+}
+
+.book-row:hover{
+    background-color: #e0b9b0ee;
+}
