@@ -5,8 +5,9 @@ import mysql from 'mysql2'
 import cors from 'cors'
 
 const app = express()
-app.use(cors())
+const PORT = 8081
 
+app.use(cors())
 dotenv.config()
 
 const db = mysql.createConnection({
@@ -17,10 +18,22 @@ const db = mysql.createConnection({
 }
 )
 
-app.get('/s', (re, res) => {
-    return res.json("from backend.")
+app.get('/', (re, res) =>{
+    res.json("Backend of bookstore");
 })
 
-app.listen(8081, () => {
-    console.log("listening")
+app.get('/api/s', (re, res) => {
+    const keyword = re.query.keyword;
+    console.log(`receive request of parameter ${keyword}`)
+    db.execute(`SELECT * FROM Book WHERE Title LIKE ?`, [`%${keyword}%`], (error, result) => {
+        if(error){
+            res.status(500).json({error: error.message});
+        }
+        console.log("finish pulling database");
+        res.json({result});
+    });
+})
+
+app.listen(PORT, () => {
+    console.log(`listening to http://localhost:${PORT}`);
 })

@@ -8,6 +8,7 @@ export default function SearchBar(){
 
     function handleSubmit(e){
         e.preventDefault();
+        if (!searchQuery) return;
         navigate(`/s/${encodeURIComponent(searchQuery)}`);
     };
 

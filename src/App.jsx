@@ -63,7 +63,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />
             <Route path="/profile" element={<Profile />} />
-            <Route path="/s/:query" element={<SearchResult/>} />
+            <Route path="/s/:keyword" element={<SearchResult/>} />
           </Routes>
         </main>
 
