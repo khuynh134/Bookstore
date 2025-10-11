@@ -10,13 +10,11 @@
 }
 
 .search-result-container{
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 25rem);
     justify-content: center;
-    align-items: center;
-    padding: 10px 5px;
-    gap: 5px;
+    padding: 1rem 0.5rem;
+    gap: 0.5rem;
     width: 100%;
     margin: 0 auto;
     background-color: #f0d9d0ee;
@@ -24,9 +22,10 @@
 
 .book{
     display: flex;
-    width: 100%;
-    max-width: 500px;
-    height: 300px;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 25rem;
+    height: 20rem;
     border-radius: 5px;
 }
 
@@ -37,24 +36,31 @@
 .book img{
     height: 100%;
     width: 40%;
-    padding: 5px;
+    padding: 0.5rem;
     object-fit: contain;
 }
 
 .book-info{
     display: flex;
     flex-direction: column;
-    padding: 5px;
+    padding: 0.5rem 0.5rem 0.5rem 0;
     height: 100%;
     width: 60%;
     text-align: left;
-    justify-content: center;
+    justify-content: space-between;
+}
+
+.book-info-top p{
+    line-height: 0.5;
+    font-size: small;
 }
 
 .book-price{
     text-align: right;
+    padding: 0 0.1rem 0 0;
 }
-.book button{
-    float: bottom;
-    padding: 5px;
+
+.book-info button{
+    background-color: #f0d9d0ee;
+    width: 100%;
 }

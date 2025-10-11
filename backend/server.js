@@ -22,6 +22,7 @@ app.get('/', (re, res) =>{
     res.json("Backend of bookstore");
 })
 
+// search on book title
 app.get('/api/s', (re, res) => {
     const keyword = re.query.keyword;
     console.log(`receive request of parameter ${keyword}`)

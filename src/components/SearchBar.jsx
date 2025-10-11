@@ -14,7 +14,7 @@ export default function SearchBar(){
 
     return (
         <form className="search-form" onSubmit= {handleSubmit}>
-            <input type="text" placeholder="Book Title..." onChange={(e) => setSearchQuery(e.target.value)}>
+            <input type="text" placeholder="Book Title..." onChange={(e) => setSearchQuery(e.target.value.trim())}>
             </input>
             <button type="submit">
                 Search
