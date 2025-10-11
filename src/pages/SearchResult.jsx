@@ -2,6 +2,7 @@ import axios from 'axios'
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import './SearchResult.css'
+import { DiVim } from 'react-icons/di';
 
 const PORT = 8081 // port of the backend server
 
@@ -39,9 +40,11 @@ export default function SearchResult(){
     }
     if(result.length == 0){
         return (
-            <div className='search-result-container'>
+            <div>
                 <h2 className='result-title'>Search Result for "{keyword}"</h2>
-                <h2 className='result-title'>No result found</h2>
+                <div className='search-result-container'>
+                    <h2>No result found</h2>
+                </div>
             </div>
         )
     }
@@ -58,11 +61,15 @@ export default function SearchResult(){
                         <div className='book'>
                             <img src={cover_url}/>
                             <div className='book-info'>
-                                <h4 className='book-title'>{book.Title}</h4>
-                                <p className='book-title'>ID: {book.BookID}</p>
-                                <p className='book-title'>ISBN: {book.ISBN}</p>
-                                <p className='book-price'>${book.Price}</p>
-                                <button>Add to Cart</button>
+                                <div className='book-info-top'>
+                                    <h4 className='book-title'>{book.Title}</h4>
+                                    <p className='book-title'>ID: {book.BookID}</p>
+                                    <p className='book-title'>ISBN: {book.ISBN}</p>
+                                </div>
+                                <div>
+                                    <p className='book-price'>${book.Price}</p>
+                                    <button>Add to Cart</button>
+                                </div>
                             </div>
                         </div>
                     );

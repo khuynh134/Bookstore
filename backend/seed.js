@@ -1,4 +1,4 @@
-/* Populate the database with sample data. simply run with the command node seed.js*/
+/* Populate the database with a small sample data. simply run with the command node seed.js*/
 import mysql from 'mysql2'
 import dotenv from 'dotenv'
 dotenv.config()
@@ -23,13 +23,15 @@ db.query(`CREATE TABLE IF NOT EXISTS Book
     ISBN BIGINT NOT NULL,
     Price DEC(10,2) NOT NULL,
     Stock INT,
-    BookCoverURL VARCHAR(100) DEFAULT NULL,
+    BookCoverURL VARCHAR(255) DEFAULT NULL,
     PRIMARY KEY(BookID),
     UNIQUE(ISBN))`);
 db.query(`INSERT INTO Book (BookID, Title, ISBN, Price, Stock, BookCoverURL)
     VALUES 
-    (1, 'The Complete Novel of Sherlock Holmes', 9780553328257, 7.89, 3, '/book_covers/9780553328257.jpg'),
-    (2, 'The Kite Runner', 9781594631931, 8.31, 5, NULL)
+    (1, 'The Complete Novel of Sherlock Holmes', 9780553328257, 7.89, 3, 'https://m.media-amazon.com/images/I/51gNNdvz0uL._SY445_SX342_ControlCacheEqualizer_.jpg'),
+    (2, 'The Kite Runner', 9781594631931, 8.31, 5, null),
+    (3, 'Harry Potter and the Philosopher's Stone', 9781408855652, 10.98, 0, 'http://images.amazon.com/images/P/1855494981.01.MZZZZZZZ.jpg')
+)
     `);
 db.commit()
 console.log("Done")
