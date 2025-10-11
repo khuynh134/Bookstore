@@ -1,5 +1,5 @@
 # Backend of Bookstore
-The backend uses express, cors, mysql2, and dotenv. Use the command npm setup when needed.
+The backend uses express, cors, mysql2, and dotenv. Use the command npm install when needed.
 To start the backend, use the command npm start.
 It is listening to the port 8081
 
