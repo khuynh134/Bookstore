@@ -12,10 +12,12 @@ function Home() {
         <div class="tile-container">
         
     <div class="tile">
+    <img src ="/public/harrypotter.jpg " alt= "Ficton Novels" className="tile-img"/>
         <p>Fiction</p>
         <button class="butn">Browse</button>
     </div>
     <div class="tile">
+    <img src ="/public/nonfiction.jpg " alt= "Non-Fiction Books" className="tile-img"/>
         <p>Non-Fiction</p>
         <button class="butn">Browse</button>
     </div>

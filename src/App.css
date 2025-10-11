@@ -10,7 +10,7 @@
 body {
   margin: 0;
   padding: 0; 
-  background-color: #f5f5f5;
+  background-color: #dededebd;
   font-family: 'Arial', sans-serif;
   padding-top: 90px;
 }
@@ -26,7 +26,7 @@ body {
 
 /* Navigation bar styles */
 .navbar {
-  background-color: #DFA8A3;
+  background-color: #220268;
   padding: 1rem 2rem;
   display: flex; 
   justify-content: space-between;
@@ -92,7 +92,7 @@ body {
 }
 
 .app-footer {
-  background-color: #DFA8A3;
+  background-color: #545E85;
   color: white;
   text-align: center;
   padding: 1.5rem;

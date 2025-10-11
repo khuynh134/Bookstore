@@ -1,4 +1,4 @@
-.home-container{
+/*.home-container{
     display:flex;
     flex-direction: column;
     background-color: #ffffff;
@@ -7,7 +7,7 @@
     box-shadow: 0 4px 20px rgba(0,0,0,0.1);
     margin: 0 auto;
     max-width: 1000px;
-    width: 100%;}
+    width: 100%;} */
 
 .parallax {
   background-image: url(https://www.theyoungfolks.com/wp-content/uploads/2021/09/October-2021.png); 
@@ -20,8 +20,6 @@
   max-width: 1650px;
   margin: 0 auto;
 }
-
-
 
 
 
@@ -68,14 +66,14 @@
     .tile-img {
         width: 500px;
         height: 300px;
-        object-fit: fill;
+        object-fit: contain;
         border-radius: 8px;
         margin-bottom: 15px;
         display: block;
       }
 
       .butn {
-        background: #86ed32; /* purple like your screenshot */
+        background: #F6D673; /* purple like your screenshot */
         color: #fff;
         padding: 10px 20px;
         border: none;

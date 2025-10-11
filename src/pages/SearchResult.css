@@ -65,3 +65,14 @@
     width: 100%;
 }
 
+<<<<<<< Updated upstream
+=======
+.book-row, .table-header{
+    background-color: #943f1dee;
+    border: none
+}
+
+.book-row:hover{
+    background-color: #e0b9b0ee;
+}
+>>>>>>> Stashed changes
