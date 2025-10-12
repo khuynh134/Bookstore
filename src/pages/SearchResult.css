@@ -48,6 +48,7 @@
     width: 60%;
     text-align: left;
     justify-content: space-between;
+    color:black;
 }
 
 .book-info-top p{
@@ -63,16 +64,5 @@
 .book-info button{
     background-color: #f0d9d0ee;
     width: 100%;
+    color:black;
 }
-
-<<<<<<< Updated upstream
-=======
-.book-row, .table-header{
-    background-color: #943f1dee;
-    border: none
-}
-
-.book-row:hover{
-    background-color: #e0b9b0ee;
-}
->>>>>>> Stashed changes

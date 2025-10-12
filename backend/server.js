@@ -16,23 +16,38 @@ const db = mysql.createConnection({
     password: process.env.DB_PASSWORD,
     database: process.env.DB_NAME
 }
-)
+).promise()
 
 app.get('/', (re, res) =>{
     res.json("Backend of bookstore");
 })
 
 // search on book title
-app.get('/api/s', (re, res) => {
+app.get('/api/s', async (re, res) => {
     const keyword = re.query.keyword;
-    console.log(`receive request of parameter ${keyword}`)
-    db.execute(`SELECT * FROM Book WHERE Title LIKE ?`, [`%${keyword}%`], (error, result) => {
-        if(error){
-            res.status(500).json({error: error.message});
+    console.log(`receive request of query ${keyword}`)
+    let result = null;
+    try{
+        [result] = await db.execute(`SELECT * FROM Book WHERE Title LIKE ?`, [`%${keyword}%`]);
+        console.log("finish pulling book lists");
+    }catch(error){
+        res.status(500).json({error: error.message});
+    }
+
+    // Query authors of the book, book.authors will contain {AuthorID, AuthorName}
+    for (const book of result) {
+        const [ids] = await db.execute(`SELECT AuthorID FROM Book_Author WHERE BookID = ?`, [book.BookID]);
+        console.log("finish pulling matching author ids");
+
+        book.Authors = [];
+        for (const id of ids) {
+            console.log(`look for author with ID ${id.AuthorID}`);
+            const [authorName] = await db.execute(`SELECT AuthorName FROM Author WHERE AuthorID = ?`, [id.AuthorID]);
+            console.log(authorName[0].AuthorName);
+            book.Authors.push({AuthorID: id.AuthorID, AuthorName : authorName[0].AuthorName});
         }
-        console.log("finish pulling database");
-        res.json({result});
-    });
+    }
+    res.json({result});
 })
 
 app.listen(PORT, () => {
