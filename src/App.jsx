@@ -9,6 +9,7 @@ import Profile from './pages/Profile';
 import SearchResult from './pages/SearchResult';
 import SearchBar from './components/SearchBar';
 import Cart from './pages/Cart';
+import AuthorPage from './pages/AuthorPage';
 
 function App() {
   const navRef = useRef(null); 
@@ -70,6 +71,7 @@ function App() {
             <Route path="/profile" element={<Profile />} />
             <Route path="/s/:keyword" element={<SearchResult/>} />
             <Route path="/cart" element={<Cart />} />
+            <Route path="/author/:authorID" element={<AuthorPage/>} />
           </Routes>
         </main>
 
