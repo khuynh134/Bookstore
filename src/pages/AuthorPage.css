@@ -1,9 +1,19 @@
+.author-page button{
+    margin: 0;
+    background-color: transparent;
+}
+
+.author-page button:hover{
+    background-color: #d0b9b0ff;
+}
+
 .author-title{
     position: sticky;
     top: 0;
     width: 100%;
     text-align: center;
     padding: 5px;
+    margin: 0 auto 2rem auto;
     background-color: #DFA8A3;
     border: 2px outset #d0b9b0ff;
     color: white;

@@ -1,9 +1,8 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 
 import './AuthorPage.css';
-import AuthorLinks from '../components/AuthorLinks';
 const PORT = 8081;
 
 function renderBook(bookData){
@@ -25,13 +24,25 @@ function renderBook(bookData){
     )
 }
 
+function renderBackButton(){
+    const navigate = useNavigate();
+    return (
+        <button onClick={()=>{navigate(-1)}}>
+            {"<"} Back
+        </button>
+    );
+}
+
 export default function AuthorPage(){
     const [bookList, setBookList] = useState([]);
     const [authorName, setAuthorName] = useState("");
 
     let authorID = useParams().authorID;
     console.log("author page for author id ", authorID)
+
     useEffect(() => {
+        window.scrollTo(0,0);
+
         axios.get(`http://localhost:${PORT}/author`, {
                 params:{
                     authorID: authorID
@@ -50,6 +61,7 @@ export default function AuthorPage(){
     if (authorName == null || authorName.length == 0){
         return (
             <div>
+                {renderBackButton()}
                 <h2>
                     No Such Author...
                 </h2>
@@ -59,6 +71,7 @@ export default function AuthorPage(){
 
     return (
         <div className="author-page">
+            {renderBackButton()}
             <h1 className="author-title">
                 {authorName}
             </h1>
