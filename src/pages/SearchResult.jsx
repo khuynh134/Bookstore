@@ -32,7 +32,7 @@ function renderBook(data){
         // look for url of the Book Cover image
         let cover_url = book.BookCoverURL;
         if (cover_url == null){
-            cover_url = "/book_covers/no_cover.png";
+            cover_url = "/book_covers/No Book Cover.jpg";
         }
         elements.push(
             <div className='book'>
