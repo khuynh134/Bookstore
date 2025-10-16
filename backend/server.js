@@ -50,6 +50,34 @@ app.get('/api/s', async (re, res) => {
     res.json({result});
 })
 
+// handle request for author's name and books using authorID
+app.get('/author', async (re, res) => {
+    const authorID = re.query.authorID;
+    console.log(`receive request for author id = ${authorID}`)
+
+    try{
+        // query database for author's name
+        let [result] = await db.execute(`SELECT AuthorName FROM Author WHERE AuthorID = ?`, [authorID]);
+        const authorName = (result && result.length != 0)? result[0].AuthorName : "";
+        console.log(`  Found author name: ${authorName}`);
+
+        // Query database for books related to the author
+        const books = [];
+        [result] = await db.execute(`SELECT BookID FROM Book_Author WHERE AuthorID = ?`, [authorID]);
+        console.log(`  Found ${result.length} books`);
+        for (const id of result) {
+            const [result] = await db.execute(`SELECT * FROM Book WHERE BookID = ?`, [id.BookID]);
+            if (result && result.length != 0){
+                books.push(result[0]);
+                console.log(`  got book data for bookID = ${result[0].BookID}`)
+            }
+        }
+        res.json({authorName, books});
+    }catch(error){
+        res.status(500).json({error: error.message});
+    }
+})
+
 app.listen(PORT, () => {
     console.log(`listening to http://localhost:${PORT}`);
 })
