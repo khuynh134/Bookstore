@@ -10,8 +10,11 @@ import SearchResult from './pages/SearchResult';
 import SearchBar from './components/SearchBar';
 import Cart from './pages/Cart';
 import AuthorPage from './pages/AuthorPage';
+import LoginPage from './components/auth/login/LoginPage'; 
+import { useAuth } from './components/context/authContext/authContext';
 
 function App() {
+  const { userLoggedIn } = useAuth();
   const navRef = useRef(null); 
   useEffect(() => {
     const nav = navRef.current;
@@ -52,14 +55,21 @@ function App() {
               Home
             </Link>
             <Link to="/about" className="nav-link">About</Link>
-            <Link to="/profile" className="nav-link profile-link">
-              <span className="material-symbols-outlined">account_circle</span>
-              Profile
-            </Link>
             <Link to="/cart" className="nav-link">
               <span className="material-symbols-outlined">shopping_cart</span>
               Cart
             </Link>
+            {userLoggedIn ? (
+              <Link to="/profile" className="nav-link profile-link">
+                <span className="material-symbols-outlined">account_circle</span>
+                Profile
+              </Link>
+            ) : (
+              <Link to="/login" className="nav-link">
+                <span className="material-symbols-outlined">login</span>
+                Login
+              </Link>
+            )}
           </div>
         </nav>
 
@@ -71,6 +81,7 @@ function App() {
             <Route path="/profile" element={<Profile />} />
             <Route path="/s/:keyword" element={<SearchResult/>} />
             <Route path="/cart" element={<Cart />} />
+            <Route path="/login" element={<LoginPage />} />
             <Route path="/author/:authorID" element={<AuthorPage/>} />
           </Routes>
         </main>
