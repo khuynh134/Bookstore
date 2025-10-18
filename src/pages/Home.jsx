@@ -33,6 +33,18 @@ function Home() {
         <p>Children's Books</p>
         <button class="butn">browse</button>
        </div>
+
+       <div class="tile">
+    <img src ="/public/young_adult.jpg " alt= "Young-Adult" className="tile-img"/>
+        <p>Young Adult</p>
+        <button class="butn">Browse</button>
+    </div>
+
+    <div class="tile">
+    <img src ="/public/Academic_book.jpg" alt= "Textbooks & Academics" className="tile-img"/>
+        <p>Textbooks & Academics</p>
+        <button class="butn">Browse</button>
+    </div>
       </div>
      </div>
     );

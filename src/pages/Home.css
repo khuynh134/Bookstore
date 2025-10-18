@@ -11,7 +11,7 @@
 
 .parallax {
   background-image: url(https://www.theyoungfolks.com/wp-content/uploads/2021/09/October-2021.png); 
-  min-height: 350px;
+  min-height: 430px;
   background-attachment: fixed;
   background-position: center bottom;
   background-repeat: no-repeat;
@@ -46,13 +46,15 @@
 }
 
 .tile-container{
-    display: grid;
-    grid-template-columns: repeat(2, minmax(600px,1fr));
-    gap: 60px;
-    justify-items:center;
+    display:grid;
+     grid-template-columns: repeat(4,1fr);
+     column-gap: 40px;
+     row-gap: 40px;
+    justify-items: stretch;
+    max-width: 1600px;
+    margin: 0 auto;
     }
     .tile {
-    width: 100%;
     margin:0;
     background: #fff;
     border-radius: 10px;
@@ -60,13 +62,13 @@
     padding: 25px;
     text-align: center;
     font-family: Arial, sans-serif;
-    max-width:500px;
-    width:100%
+    max-width: none;
+    width:100%;
+    
     }
     .tile-img {
-        width: 500px;
-        height: 300px;
-        object-fit: contain;
+        width: 100%;
+        height: auto;
         border-radius: 8px;
         margin-bottom: 15px;
         display: block;
