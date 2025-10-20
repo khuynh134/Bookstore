@@ -31,9 +31,16 @@ app.get('/api/s', async (re, res) => {
     let result = null;
     let hasNext = false;
     try{
-        [result] = await db.execute(`SELECT * FROM Book 
+        [result] = await db.execute(`SELECT
+            Book.*,
+            GROUP_CONCAT(Author.AuthorID) as AuthorID,
+            GROUP_CONCAT(Author.AuthorName) as AuthorName
+            FROM Book 
+            LEFT JOIN Book_Author ON Book_Author.BookID = Book.BookID
+            LEFT JOIN Author ON Book_Author.AuthorID = Author.AuthorID
             WHERE Title LIKE ? 
-            ORDER BY BookID 
+            GROUP BY Book.BookID
+            ORDER BY Book.BookID 
             LIMIT ? OFFSET ?`, 
             [`%${keyword}%`, String(pageSize + 1), String(offset)]); 
         //check if there is next book
@@ -46,15 +53,9 @@ app.get('/api/s', async (re, res) => {
         res.status(500).json({error: error.message});
     }
 
-    // Query authors of the books, book.authors will contain {AuthorID, AuthorName}
     for (const book of result) {
-        const [ids] = await db.execute(`SELECT AuthorID FROM Book_Author WHERE BookID = ?`, [book.BookID]);
-        // match AuthorName with their AuthorId for each book
-        book.Authors = [];
-        for (const id of ids) {
-            const [authorName] = await db.execute(`SELECT AuthorName FROM Author WHERE AuthorID = ?`, [id.AuthorID]);
-            book.Authors.push({AuthorID: id.AuthorID, AuthorName : authorName[0].AuthorName});
-        }
+        book.AuthorID = (book.AuthorID)? book.AuthorID.split(',') : [];
+        book.AuthorName = (book.AuthorName)? book.AuthorName.split(',') : [];
     }
     
     res.json({result, hasNext});
@@ -67,21 +68,18 @@ app.get('/author', async (re, res) => {
 
     try{
         // query database for author's name
-        let [result] = await db.execute(`SELECT AuthorName FROM Author WHERE AuthorID = ?`, [authorID]);
+        let [result] = await db.execute(`SELECT AuthorName 
+            FROM Author WHERE AuthorID = ?`, [authorID]);
         const authorName = (result && result.length != 0)? result[0].AuthorName : "";
         console.log(`  Found author name: ${authorName}`);
 
         // Query database for books related to the author
-        const books = [];
-        [result] = await db.execute(`SELECT BookID FROM Book_Author WHERE AuthorID = ?`, [authorID]);
-        console.log(`  Found ${result.length} books`);
-        for (const id of result) {
-            const [result] = await db.execute(`SELECT * FROM Book WHERE BookID = ?`, [id.BookID]);
-            if (result && result.length != 0){
-                books.push(result[0]);
-                console.log(`  got book data for bookID = ${result[0].BookID}`)
-            }
-        }
+        const [books] = await db.execute(`SELECT Book.*
+            FROM Book_Author 
+            LEFT JOIN Book ON Book.BookID = Book_Author.BookID
+            WHERE AuthorID = ?`, [authorID]);
+        console.log(`  Found ${books.length} books`);
+
         res.json({authorName, books});
     }catch(error){
         res.status(500).json({error: error.message});

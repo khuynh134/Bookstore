@@ -3,35 +3,15 @@ import { useParams} from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import './SearchResult.css'
 import { DiVim } from 'react-icons/di';
-import AuthorLinks from '../components/AuthorLinks';'../components/AuthorLinks';
-
+import BookWithAddToCart from '../components/BookWithAddToCart';
 const PORT = 8081 // port of the backend server
 
 // render list of books in search result
 function renderBooks(data){
     const elements = [];
     for (const book of data){
-        // look for url of the Book Cover image
-        let bookCoverURL = book.BookCoverURL;
-        if (bookCoverURL == null || bookCoverURL.length == 0){
-            bookCoverURL = "/book_covers/No Book Cover.jpg";
-        }
         elements.push(
-            <div key={book.BookID} className='book'>
-                <img src={bookCoverURL}/>
-                <div className='book-info'>
-                    <div className='book-info-top'>
-                        <h4>{book.Title}</h4>
-                        <AuthorLinks authors={book.Authors}/>
-                        <p>ID: {book.BookID}</p>
-                        <p>ISBN: {book.ISBN}</p>
-                    </div>
-                    <div className='book-info-bottom'>
-                        <p className='book-price'>${book.Price}</p>
-                        <button>Add to Cart</button>
-                    </div>
-                </div>
-            </div>
+            <BookWithAddToCart key={book.BookID} book={book}/>
         );
     }           
     return <div className='search-result-books'>{elements}</div>;
@@ -67,7 +47,7 @@ export default function SearchResult(){
         .then((response) => {
             setResult(response.data.result)
             setHasNext(response.data.hasNext)
-            console.log("response received")
+            console.log("search result received")
         })
         .catch((error) => {
             console.log(error)
@@ -76,8 +56,15 @@ export default function SearchResult(){
     }, [keyword, page]);
 
     if(isLoading) {
+        if(page != 1){
+            return (
+                <div className='loading'>
+                    <h2>Searching for "{keyword}"", please wait ...</h2>
+                </div>
+            )
+        }
         return (
-            <div>
+            <div className='loading'>
                 <h2>Searching for "{keyword}"", please wait ...</h2>
             </div>
         );

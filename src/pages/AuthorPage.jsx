@@ -3,26 +3,8 @@ import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 
 import './AuthorPage.css';
+import BookWithAddToCart from '../components/BookWithAddToCart';
 const PORT = 8081;
-
-function renderBook(bookData){
-    console.log(` rendering book with id = ${bookData.BookID}`)
-    let url = bookData.BookCoverURL;
-    if(! url || url.length == 0){
-        url = "/book_covers/no_cover.png";
-    }
-    return (
-        <div className="book">
-            <img src = {url}/>
-            <div className="book-info">
-                <h4>{bookData.Title}</h4>
-                <p>{bookData.ISBN}</p>
-                <p><b>${bookData.Price}</b></p>
-                <button>Add to Cart</button>
-            </div>
-        </div>
-    )
-}
 
 function renderBackButton(){
     const navigate = useNavigate();
@@ -38,9 +20,11 @@ export default function AuthorPage(){
     const [authorName, setAuthorName] = useState("");
 
     let authorID = useParams().authorID;
-    console.log("author page for author id ", authorID)
 
     useEffect(() => {
+        if(!authorID) return;
+        console.log("author page for author id ", authorID)
+
         window.scrollTo(0,0);
 
         axios.get(`http://localhost:${PORT}/author`, {
@@ -51,7 +35,7 @@ export default function AuthorPage(){
             .then((response) => {
                 setAuthorName(response.data.authorName)
                 setBookList(response.data.books)
-                console.log(`response about author ${authorName} received, ${bookList.length} books.`)
+                console.log(`  Received ${response.data.books.length} books for author ${response.data.authorName}`)
             })
             .catch((error) => {
                 console.log(error)
@@ -76,7 +60,9 @@ export default function AuthorPage(){
                 {authorName}
             </h1>
             <div className="author-book-list">
-                {bookList.map(renderBook)}
+                {bookList.map(book=>{
+                    return <BookWithAddToCart key={book.BookID} book={book}/>
+                })}
             </div>
         </div>
     )
