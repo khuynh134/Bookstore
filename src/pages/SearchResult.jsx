@@ -26,7 +26,7 @@ function renderBooks(data){
                         <p>ID: {book.BookID}</p>
                         <p>ISBN: {book.ISBN}</p>
                     </div>
-                    <div>
+                    <div className='book-info-bottom'>
                         <p className='book-price'>${book.Price}</p>
                         <button>Add to Cart</button>
                     </div>
@@ -34,33 +34,46 @@ function renderBooks(data){
             </div>
         );
     }           
-    return <div className='search-result-container'>{elements}</div>;
+    return <div className='search-result-books'>{elements}</div>;
 }
 
 export default function SearchResult(){
     const [result, setResult] = useState([])
     const [isLoading, setLoading] = useState(false)
-    let keyword = useParams().keyword
+    const [page, setPage] = useState(1)
+    const [hasNext, setHasNext] = useState(false)
+    const pageSize = 12 // # of books per page
+    let keyword = useParams().keyword // what to search for
 
+    // when searching keywork change, reset the page number to default
+    useEffect(() => {
+        setPage(1);
+    },[keyword])
+
+    // when either keyword change or page change
     useEffect(() => {
         if(!keyword) return;
 
+        window.scrollTo(0,0);
         setLoading(true)
 
         axios.get(`http://localhost:${PORT}/api/s`, {
             params:{
-                keyword: keyword
+                keyword: keyword,
+                page: page,
+                pageSize: pageSize
             }
         })
         .then((response) => {
             setResult(response.data.result)
+            setHasNext(response.data.hasNext)
             console.log("response received")
         })
         .catch((error) => {
             console.log(error)
         })
         .finally(() => setLoading(false))
-    }, [keyword]);
+    }, [keyword, page]);
 
     if(isLoading) {
         return (
@@ -69,6 +82,7 @@ export default function SearchResult(){
             </div>
         );
     }
+
     if(result.length == 0){
         return (
             <div>
@@ -82,7 +96,23 @@ export default function SearchResult(){
     return (
         <div>
             <h2 className='result-title'>Search Result for "{keyword}"</h2>
+            <div className='pagination'>
+                {(page != 1) ? <button className="prev-btn" onClick={()=>{setPage(page - 1)}}>Prev</button> 
+                : <div></div>}
+                <span className="page-number">page <strong>{page}</strong></span>
+                {hasNext? <button className="next-btn" onClick={()=>{setPage(page + 1)}}>Next</button>
+                : <div></div>}
+            </div>
+
             {renderBooks(result)}
+
+            <div className='pagination'>
+                {(page != 1) ? <button className="prev-btn" onClick={()=>{setPage(page - 1)}}>Prev</button> 
+                : <div></div>}
+                <span className="page-number">page <strong>{page}</strong></span>
+                {hasNext? <button className="next-btn" onClick={()=>{setPage(page + 1)}}>Next</button>
+                : <div></div>}
+            </div>
         </div>
     );
 }

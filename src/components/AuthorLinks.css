@@ -1,0 +1,9 @@
+.author_links{
+    display: inline-block;
+    margin: 0, 5px;
+    line-height: 2rem;
+}
+
+.author_link:hover{
+    text-decoration: underline;
+}

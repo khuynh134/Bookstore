@@ -25,29 +25,39 @@ app.get('/', (re, res) =>{
 // search on book title
 app.get('/api/s', async (re, res) => {
     const keyword = re.query.keyword;
-    console.log(`receive request of query ${keyword}`)
+    const pageSize = (re.query.pageSize)? parseInt(re.query.pageSize) : 24;
+    const offset = (re.query.page)? (parseInt(re.query.page)- 1)* pageSize : 0;
+    console.log(`receive request of query ${keyword} for pageSize = ${pageSize} and derived offset = ${offset}`)
     let result = null;
+    let hasNext = false;
     try{
-        [result] = await db.execute(`SELECT * FROM Book WHERE Title LIKE ?`, [`%${keyword}%`]);
-        console.log("finish pulling book lists");
+        [result] = await db.execute(`SELECT * FROM Book 
+            WHERE Title LIKE ? 
+            ORDER BY BookID 
+            LIMIT ? OFFSET ?`, 
+            [`%${keyword}%`, String(pageSize + 1), String(offset)]); 
+        //check if there is next book
+        hasNext = result.length > pageSize;
+        if (hasNext){
+            result = result.slice(0, -1)
+        }
+        console.log(`Found ${result.length} books and hasNext = ${hasNext}`)
     }catch(error){
         res.status(500).json({error: error.message});
     }
 
-    // Query authors of the book, book.authors will contain {AuthorID, AuthorName}
+    // Query authors of the books, book.authors will contain {AuthorID, AuthorName}
     for (const book of result) {
         const [ids] = await db.execute(`SELECT AuthorID FROM Book_Author WHERE BookID = ?`, [book.BookID]);
-        console.log("finish pulling matching author ids");
-
+        // match AuthorName with their AuthorId for each book
         book.Authors = [];
         for (const id of ids) {
-            console.log(`look for author with ID ${id.AuthorID}`);
             const [authorName] = await db.execute(`SELECT AuthorName FROM Author WHERE AuthorID = ?`, [id.AuthorID]);
-            console.log(authorName[0].AuthorName);
             book.Authors.push({AuthorID: id.AuthorID, AuthorName : authorName[0].AuthorName});
         }
     }
-    res.json({result});
+    
+    res.json({result, hasNext});
 })
 
 // handle request for author's name and books using authorID
