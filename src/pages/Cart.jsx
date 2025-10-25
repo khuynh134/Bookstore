@@ -1,7 +1,12 @@
 import './Cart.css';
 import "@fortawesome/fontawesome-free"
-
+import React, {useState} from "react";
 function Cart() {
+
+ const [quantity,setQuantity]= useState(1); // this starts with one
+ const price = 27;
+ const subtotal = price * quantity;
+ 
   return (
     <div>
       <h1>Your Cart</h1>
@@ -31,9 +36,14 @@ function Cart() {
               <td><i className="far fa-times-circle"></i></td>
               <td><img src="https://brightspotcdn.byu.edu/dims4/default/918b6a9/2147483647/strip/true/crop/676x1024+0+0/resize/676x1024!/quality/90/?url=https%3A%2F%2Fbrigham-young-brightspot-us-east-2.s3.us-east-2.amazonaws.com%2F71%2Fa1%2F2bdf70bc302875f943d214dfac52%2Fhp4cover-676x1024.jpg" alt=""/></td>
               <td>Harry Potter And The Goblet of Fire</td>
-              <td>$27</td>
-              <td><input type="number" value="1"/></td>
-              <td>$27</td>
+              <td>${price}</td>
+              <td><input type="number" 
+              value={quantity}
+              min="1"
+              onChange={(e)=> setQuantity(Number(e.target.value))}
+              />
+              </td>
+              <td>${subtotal}</td>
             </tr>
           </tbody>
         </table>
