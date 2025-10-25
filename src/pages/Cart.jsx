@@ -1,4 +1,5 @@
 import './Cart.css';
+import "@fortawesome/fontawesome-free"
 
 function Cart() {
   return (
@@ -12,6 +13,7 @@ function Cart() {
               <td>Remove</td>
               <td>Image</td>
               <td>Product</td>
+              <td>Price</td>
               <td>Quantity</td>
               <td>Subtotal</td>
             </tr>
@@ -27,6 +29,27 @@ function Cart() {
             </tr>
           </tbody>
         </table>
+      </section>
+      <section id="cart-add" className="section-p2">
+        <div id="subtotal">
+            <h1>Cart Total</h1>
+            <table>
+                <tr>
+                    <td>Cart Subtotal:</td>
+                    <td>$200</td>
+                </tr>
+                <tr>
+                    <td>Shipping</td>
+                    <td>Free</td>
+                </tr>
+                <tr>
+                    <td><strong>Total</strong></td>
+                    <td><strong>$200</strong></td>
+                </tr>
+            </table>
+            <button className="buttn">Proceed to Checkout</button>
+        </div>
+
       </section>
     </div>
   );

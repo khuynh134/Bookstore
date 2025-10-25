@@ -36,3 +36,63 @@
     width: 70px;
     padding: 10px 5px 10px 15px;
 }
+
+#cart table thead{
+    border:1px solid #cbcfca;
+    border-left:none;
+    border-right:none;
+
+}
+
+#cart table thead td{
+    font-weight:750;
+    text-transform: uppercase;
+    font-size:13px; 
+}
+
+#cart table tbody tr td{ 
+    padding-top: 15px;
+}
+
+#cart table tbody tr td{
+    font-size:13px;
+}
+
+#cart-add{
+    display:Flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+#subtotal{
+    width: 50%;
+    margin-bottom: 30px;
+    border: 1px solid #cbcfca;
+    padding: 30px;
+    
+}
+
+#cart-add h1{
+    font-size: 35px;
+    padding-bottom: 12px;
+}
+
+#subtotal table{
+    border-collapse:collapse;
+    width:100%;
+    margin-bottom:20px;
+}
+
+#subtotal table td{
+width:50%;
+border: 1px solid #cbcfca;
+padding:10px;
+font-size:13px;
+}
+
+#subtotal button {
+ background-color: #F6D673; 
+ color: #302b2b;
+ padding: 12px 20 px;
+
+}
