@@ -61,11 +61,11 @@
 #cart-add{
     display:Flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: flex-end;
 }
 
 #subtotal{
-    width: 50%;
+    width: 35%;
     margin-bottom: 30px;
     border: 1px solid #cbcfca;
     padding: 30px;

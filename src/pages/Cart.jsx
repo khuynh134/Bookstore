@@ -23,9 +23,17 @@ function Cart() {
               <td><i className="far fa-times-circle"></i></td>
               <td><img src="https://i.thriftbooks.com/api/imagehandler/m/19D6645B3BA7620CA71E487187EF147B6EA851A7.jpeg" alt=""/></td>
               <td>When You are Engulfed in Flames</td>
-              <td>$200</td>
+              <td>$10</td>
               <td><input type="number" value="1"/></td>
-              <td>$200</td>
+              <td>$10</td>
+            </tr>
+            <tr>
+              <td><i className="far fa-times-circle"></i></td>
+              <td><img src="https://brightspotcdn.byu.edu/dims4/default/918b6a9/2147483647/strip/true/crop/676x1024+0+0/resize/676x1024!/quality/90/?url=https%3A%2F%2Fbrigham-young-brightspot-us-east-2.s3.us-east-2.amazonaws.com%2F71%2Fa1%2F2bdf70bc302875f943d214dfac52%2Fhp4cover-676x1024.jpg" alt=""/></td>
+              <td>Harry Potter And The Goblet of Fire</td>
+              <td>$27</td>
+              <td><input type="number" value="1"/></td>
+              <td>$27</td>
             </tr>
           </tbody>
         </table>
@@ -36,7 +44,7 @@ function Cart() {
             <table>
                 <tr>
                     <td>Cart Subtotal:</td>
-                    <td>$200</td>
+                    <td>$37</td>
                 </tr>
                 <tr>
                     <td>Shipping</td>
@@ -44,7 +52,7 @@ function Cart() {
                 </tr>
                 <tr>
                     <td><strong>Total</strong></td>
-                    <td><strong>$200</strong></td>
+                    <td><strong>$37</strong></td>
                 </tr>
             </table>
             <button className="buttn">Proceed to Checkout</button>
