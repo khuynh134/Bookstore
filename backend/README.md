@@ -23,8 +23,10 @@ If so, on Window system and when its location is separated from XAMPP:
 4. Right click it and click start.
 
 ## Installing dependencies for sign up and login 
+## in the frontend of the project install these
 in the frontend of the project, install dependencies using this command: 
 npm install axios react-router-dom tailwindcss postcss autoprefixer 
+## in the backend of the project install these
 in the backend/ backend folder, (cd backend) install dependencies using this command:
 npm install express cors bcrypt jsonwebtoken mysql2 nodemon 
 
