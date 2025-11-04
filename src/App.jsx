@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Link, Navigate } from 'react-router-dom';
 import './App.css'
 
 
@@ -10,12 +10,25 @@ import SearchResult from './pages/SearchResult';
 import SearchBar from './components/SearchBar';
 import Cart from './pages/Cart';
 import AuthorPage from './pages/AuthorPage';
-import LoginPage from './components/auth/login/LoginPage'; 
-import { useAuth } from './components/context/authContext/authContext';
+import Register from './pages/Register';
+import Login from './pages/Login';
+import { AuthProvider, useAuth } from './context/AuthContext';
 
 function App() {
-  const { userLoggedIn } = useAuth();
-  const navRef = useRef(null); 
+  return (
+    <AuthProvider>
+      <InnerApp />
+    </AuthProvider>
+  );
+}
+
+function InnerApp() {
+  const { isAuthenticated, logout } = useAuth();
+  const navRef = useRef(null);
+  const handleSignOut = async () => {
+    await logout();
+    window.location.href = '/login';
+  };
   useEffect(() => {
     const nav = navRef.current;
     if (!nav) return;
@@ -38,7 +51,6 @@ function App() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
   return (
-    
     <BrowserRouter>
       <div className="app-container">
         {/* Navigation Bar */}
@@ -59,16 +71,17 @@ function App() {
               <span className="material-symbols-outlined">shopping_cart</span>
               Cart
             </Link>
-            {userLoggedIn ? (
-              <Link to="/profile" className="nav-link profile-link">
-                <span className="material-symbols-outlined">account_circle</span>
-                Profile
-              </Link>
+           
+            {isAuthenticated ? (
+              <>
+                <Link to="/profile" className="nav-link">Profile</Link>
+                <button className="nav-link" onClick={handleSignOut} style={{background:'transparent',border:'none',cursor:'pointer'}}>Sign Out</button>
+              </>
             ) : (
-              <Link to="/login" className="nav-link">
-                <span className="material-symbols-outlined">login</span>
-                Login
-              </Link>
+              <>
+                <Link to="/login" className="nav-link">Sign In</Link>
+                <Link to="/register" className="nav-link">Register</Link>
+              </>
             )}
           </div>
         </nav>
@@ -78,11 +91,12 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />
-            <Route path="/profile" element={<Profile />} />
+            <Route path="/profile" element={isAuthenticated ? <Profile /> : <Navigate to="/login" replace />} />
             <Route path="/s/:keyword" element={<SearchResult/>} />
             <Route path="/cart" element={<Cart />} />
-            <Route path="/login" element={<LoginPage />} />
+            <Route path="/register" element={<Register />} />
             <Route path="/author/:authorID" element={<AuthorPage/>} />
+            <Route path="/login" element={<Login />} />
           </Routes>
         </main>
 

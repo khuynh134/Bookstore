@@ -1,0 +1,74 @@
+.register {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #dededebd;
+}
+
+.registerContainer {
+    width: 90%;
+    max-width: 500px;
+    padding: 20px;
+    background-color: #3f449c;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+}
+
+.registerButton {
+    width: 100%;
+    padding: 10px;
+    background-color: #3f9c84;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 10px;
+}
+
+.form-input {
+    text-align: center;
+    width: auto;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    box-sizing: border-box;
+    color: rgb(184, 169, 169);
+    background-color: #f0f0f0;
+}
+
+.login-link {
+    margin-top: 15px;
+    color: white;
+    text-decoration: none;
+}
+
+/* Style the actual input elements inside the .form-input wrapper */
+.form-input input {
+        width: 100%;
+        padding: 10px;
+        margin-top: 3px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 16px;
+        box-sizing: border-box;
+        color: #222; /* dark text on light background */
+        background-color: #f0f0f0; /* remove dark/black background */
+}
+
+/* Override browser autofill background (Chrome/Safari) */
+input:-webkit-autofill,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:hover {
+    -webkit-box-shadow: 0 0 0px 1000px #f0f0f0 inset !important;
+    box-shadow: 0 0 0px 1000px #f0f0f0 inset !important;
+    -webkit-text-fill-color: #222 !important;
+}

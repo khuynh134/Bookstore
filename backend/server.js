@@ -3,12 +3,21 @@ import dotenv from 'dotenv'
 import express from 'express'
 import mysql from 'mysql2'
 import cors from 'cors'
+import cookieParser from 'cookie-parser'
+import authRouter from './routes/authRoutes.js';
+
+dotenv.config()
 
 const app = express()
-const PORT = 8081
+const PORT = process.env.PORT || 8081
 
-app.use(cors())
-dotenv.config()
+// Allow CORS from the frontend and allow credentials so cookies can be set/cleared
+app.use(cors({ origin: 'http://localhost:5173', credentials: true }));
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
+app.use(cookieParser())
+
+app.use('/auth', authRouter);
 
 const db = mysql.createConnection({
     host: process.env.DB_HOST,
