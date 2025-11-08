@@ -1,6 +1,5 @@
 # Backend of Bookstore
 The backend uses express, cors, mysql2, and dotenv. Use the command npm install when needed.
-To start the backend, use the command npm start.
 It is listening to the port 8081
 
 ## Set the login information in .env file
@@ -25,10 +24,10 @@ If so, on Window system and when its location is separated from XAMPP:
 ## Installing dependencies for sign up and login 
 ## in the frontend of the project install these
 in the frontend of the project, install dependencies using this command: 
-npm install axios react-router-dom tailwindcss postcss autoprefixer 
+npm install 
 ## in the backend of the project install these
 in the backend/ backend folder, (cd backend) install dependencies using this command:
-npm install express cors bcrypt jsonwebtoken mysql2 nodemon 
+npm install 
 
 ## Running the backend 
 I mostly start the backend with line "npm run dev", but npm start should work for login and registering too 
