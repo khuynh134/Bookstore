@@ -7,6 +7,15 @@ export default function BookWithAddToCart({book}){
     if (bookCoverURL == null || bookCoverURL.length == 0){
         bookCoverURL = "/book_covers/No Book Cover.jpg";
     }
+    
+    // Message if the stock is low or unavailable
+    let stock_msg = "";
+    if (book.Stock == null || book.Stock == 0){
+        stock_msg = "Currently Unavailable";
+    }else if (book.Stock <= 5){
+        stock_msg = `${book.Stock} Left`;
+    }
+
     return (
         <div key={book.BookID} className='book'>
             <img src={bookCoverURL}/>
@@ -18,6 +27,7 @@ export default function BookWithAddToCart({book}){
                     <p>ISBN: {book.ISBN}</p>
                 </div>
                 <div className='book-info-bottom'>
+                    {stock_msg.length > 0 && <p className="stock">{stock_msg}</p> }
                     <p className='book-price'><b>${book.Price}</b></p>
                     <button>Add to Cart</button>
                 </div>
