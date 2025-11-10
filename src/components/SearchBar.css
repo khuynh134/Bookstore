@@ -10,12 +10,12 @@
     box-sizing: border-box;
     height: 2.5rem;
 }
+
 .search-form input{
     box-sizing: border-box;
     background-color: inherit;
     color: inherit;
     border-radius: 5px 0 0 5px;
-    border-color: inherit;
     border-width: 2px;
     padding: 0 5px;
 }
@@ -31,5 +31,6 @@
 
 .search-form button:hover{
     background-color: inherit;
-    color: inherit;
+    border-color: #535bf2;
+    color: #535bf2;
 }

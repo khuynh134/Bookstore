@@ -58,3 +58,8 @@ src/
 - `npm run dev` - Start development server
 - `npm run build` - Build for production
 - `npm run preview` - Preview production build
+
+
+## Data Source
+
+Lorena Casanova Lozano, & Sergio Costa Planells. (2020). Best Books Ever Dataset (1.0.0) [Data set]. Zenodo. https://doi.org/10.5281/zenodo.4265096
