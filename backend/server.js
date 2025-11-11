@@ -5,6 +5,7 @@ import mysql from 'mysql2'
 import cors from 'cors'
 import cookieParser from 'cookie-parser'
 import authRouter from './routes/authRoutes.js';
+import searchRouter from './routes/searchRoutes.js';
 
 dotenv.config()
 
@@ -31,79 +32,8 @@ app.get('/', (re, res) =>{
     res.json("Backend of bookstore");
 })
 
-// search on book title
-app.get('/api/s', async (re, res) => {
-    const keyword = re.query.keyword;
-    const pageSize = (re.query.pageSize)? parseInt(re.query.pageSize) : 24;
-    const offset = (re.query.page)? (parseInt(re.query.page)- 1)* pageSize : 0;
-    console.log(`receive request of query ${keyword} for pageSize = ${pageSize} and derived offset = ${offset}`)
-    let result = null;
-    let hasNext = false;
-    try{
-        [result] = await db.execute(`SELECT
-            Book.*,
-            GROUP_CONCAT(Author.AuthorID) as AuthorID,
-            GROUP_CONCAT(Author.AuthorName) as AuthorName
-            FROM Book 
-            LEFT JOIN Book_Author ON Book_Author.BookID = Book.BookID
-            LEFT JOIN Author ON Book_Author.AuthorID = Author.AuthorID
-            WHERE Title LIKE ? 
-            GROUP BY Book.BookID
-            ORDER BY Book.BookID 
-            LIMIT ? OFFSET ?`, 
-            [`%${keyword}%`, String(pageSize + 1), String(offset)]); 
-        //check if there is next book
-        hasNext = result.length > pageSize;
-        if (hasNext){
-            result = result.slice(0, -1)
-        }
-        console.log(`Found ${result.length} books and hasNext = ${hasNext}`)
-    }catch(error){
-        res.status(500).json({error: error.message});
-    }
-
-    for (const book of result) {
-        book.AuthorID = (book.AuthorID)? book.AuthorID.split(',') : [];
-        book.AuthorName = (book.AuthorName)? book.AuthorName.split(',') : [];
-    }
-    
-    res.json({result, hasNext});
-})
-
-// handle request for author's name and books using authorID
-app.get('/author', async (re, res) => {
-    const authorID = re.query.authorID;
-    console.log(`receive request for author id = ${authorID}`)
-
-    try{
-        // query database for author's name
-        let [result] = await db.execute(`SELECT AuthorName 
-            FROM Author WHERE AuthorID = ?`, [authorID]);
-        const authorName = (result && result.length != 0)? result[0].AuthorName : "";
-        console.log(`  Found author name: ${authorName}`);
-
-        // Query database for books related to the author
-        const [books] = await db.execute(`SELECT 
-            Book.*,
-            GROUP_CONCAT(Author.AuthorID) as AuthorID,
-            GROUP_CONCAT(Author.AuthorName) as AuthorName
-            FROM (SELECT DISTINCT BookID FROM Book_Author WHERE AuthorID = ? ) AS Selection
-            JOIN Book ON Book.BookID = Selection.BookID
-            JOIN Book_Author ON Selection.BookID = Book_Author.BookID
-            JOIN Author ON Author.AuthorID = Book_Author.AuthorID
-            GROUP BY Book.BookID`, [authorID]);
-        // process the the authorID and authorName into list
-        for (const book of books) {
-            book.AuthorID = (book.AuthorID)? book.AuthorID.split(',') : [];
-            book.AuthorName = (book.AuthorName)? book.AuthorName.split(',') : [];
-        }
-
-        console.log(`  Found ${books.length} books`);
-        res.json({authorName, books});
-    }catch(error){
-        res.status(500).json({error: error.message});
-    }
-})
+// search for books with certain keyword in titles, or authorID with /author, or category /category
+app.use('/s', searchRouter);
 
 app.get('/api/cart', async (req, res) => {
   const cartId = Number(req.query.cart_id || 1); // default to 1 if not specified

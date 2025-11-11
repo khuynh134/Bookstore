@@ -4,7 +4,13 @@ import { useEffect, useState } from 'react';
 import './SearchResult.css'
 import { DiVim } from 'react-icons/di';
 import BookWithAddToCart from '../components/BookWithAddToCart';
+import Pagination from '../components/Pagination';
 const PORT = 8081 // port of the backend server
+
+// compose the address to get backend data
+function getBackendAdr(){
+    return `http://localhost:${PORT}/s`;
+}
 
 // render list of books in search result
 function renderBooks(data){
@@ -37,7 +43,7 @@ export default function SearchResult(){
         window.scrollTo(0,0);
         setLoading(true)
 
-        axios.get(`http://localhost:${PORT}/api/s`, {
+        axios.get(getBackendAdr(), {
             params:{
                 keyword: keyword,
                 page: page,
@@ -45,7 +51,7 @@ export default function SearchResult(){
             }
         })
         .then((response) => {
-            setResult(response.data.result)
+            setResult(response.data.books)
             setHasNext(response.data.hasNext)
             console.log("search result received")
         })
@@ -83,23 +89,9 @@ export default function SearchResult(){
     return (
         <div>
             <h2 className='result-title'>Search Result for "{keyword}"</h2>
-            <div className='pagination'>
-                {(page != 1) ? <button className="prev-btn" onClick={()=>{setPage(page - 1)}}>Prev</button> 
-                : <div></div>}
-                <span className="page-number">page <strong>{page}</strong></span>
-                {hasNext? <button className="next-btn" onClick={()=>{setPage(page + 1)}}>Next</button>
-                : <div></div>}
-            </div>
-
+            <Pagination setPage = {setPage} hasNext = {hasNext} page = {page}></Pagination>
             {renderBooks(result)}
-
-            <div className='pagination'>
-                {(page != 1) ? <button className="prev-btn" onClick={()=>{setPage(page - 1)}}>Prev</button> 
-                : <div></div>}
-                <span className="page-number">page <strong>{page}</strong></span>
-                {hasNext? <button className="next-btn" onClick={()=>{setPage(page + 1)}}>Next</button>
-                : <div></div>}
-            </div>
+            <Pagination setPage = {setPage} hasNext = {hasNext} page = {page}></Pagination>
         </div>
     );
 }

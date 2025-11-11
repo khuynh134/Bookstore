@@ -4,8 +4,14 @@ import axios from 'axios';
 
 import './AuthorPage.css';
 import BookWithAddToCart from '../components/BookWithAddToCart';
-const PORT = 8081;
 
+const PORT = 8081;
+// compose and return the backend server address to get the data.
+function getBackendAdr(){
+    return `http://localhost:${PORT}/s/author`;
+}
+
+// render the button to go back to last page
 function renderBackButton(){
     const navigate = useNavigate();
     return (
@@ -27,7 +33,7 @@ export default function AuthorPage(){
 
         window.scrollTo(0,0);
 
-        axios.get(`http://localhost:${PORT}/author`, {
+        axios.get(getBackendAdr(), {
                 params:{
                     authorID: authorID
                 }
