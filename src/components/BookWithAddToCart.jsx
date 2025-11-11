@@ -16,6 +16,13 @@ export default function BookWithAddToCart({book}){
         stock_msg = `${book.Stock} Left`;
     }
 
+    // process book category strings
+    let categories =  (book.Category)? book.Category : "";
+    categories = categories.replace(/[\[\]\']/g, '');
+    if(categories.length > 100){
+        categories = categories.substr(0, 100) + "..."
+    }
+    
     return (
         <div key={book.BookID} className='book'>
             <img src={bookCoverURL}/>
@@ -23,6 +30,7 @@ export default function BookWithAddToCart({book}){
                 <div className='book-info-top'>
                     <h4>{book.Title}</h4>
                     <AuthorLinks authorNames={book.AuthorName} authorIDs={book.AuthorID}/>
+                    <p>Genre: {categories}</p>
                     <p>ID: {book.BookID}</p>
                     <p>ISBN: {book.ISBN}</p>
                 </div>

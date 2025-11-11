@@ -1,5 +1,20 @@
+import { useNavigate } from 'react-router-dom';
 import './Home.css';
+
 function Home() {
+    const navigate = useNavigate();
+    const categories = [
+        {title: "Children's Books", data: 'Childrens', image: "/corduroy.jpg ", alt: "Children's books"},
+        {title: "Young Adult", data: 'Young Adult', image: "/hunger_game.jpg ", alt: "Young-Adult"},
+        {title: "Adult", data: 'Adult', image: "/aThousand.jpg ", text: "Adult", alt: "adult"},
+        {title: "Fiction", data: 'Fiction', image: "/harrypotter.jpg ", alt: "Fiction Novels"},
+        {title: "Non-Fiction", data: 'Nonfiction', image: "/nonfiction.jpg ", alt: "Fiction Novels"},
+        {title: "Comics & Graphic Novels", data: 'Comics', image: "/spider_comic.jpg ", alt: "Comics and Graphic Novels"},
+        {title: "Romance", data: 'Romance', image: "/twilight.jpg", alt: "Romance"},
+        {title: "Classics", data: 'Classics', image: "/oldManAndSea.jpg ", alt: "Classics"},
+        {title: "Mystery", data: 'Mystery', image: "/holmes.jpg ", alt: "Mystery"}
+    ];
+
     return (
         <div>
              
@@ -11,42 +26,21 @@ function Home() {
         <div className="parallax"></div> 
         <div class="tile-container">
         
-    <div class="tile">
-    <img src ="/public/harrypotter.jpg " alt= "Ficton Novels" className="tile-img"/>
-        <p>Fiction</p>
-        <button class="butn">Browse</button>
+        {categories.map((category) => {
+            return (
+                <div class="tile">
+                    <img src = {category.image} 
+                    alt= {category.alt} 
+                    className="tile-img"/>
+                    <p>{category.title}</p>
+                    <button class="butn" onClick={()=> {navigate(`/category/${category.data}`)}}>
+                        Browse
+                    </button>
+                </div>
+            );
+        })}
     </div>
-    <div class="tile">
-    <img src ="/public/nonfiction.jpg " alt= "Non-Fiction Books" className="tile-img"/>
-        <p>Non-Fiction</p>
-        <button class="butn">Browse</button>
     </div>
-
-    <div class="tile">
-    <img src ="/public/spider_comic.jpg " alt= "Comics and Graphic Novels" className="tile-img"/>
-        <p>Comics & Graphic Novels</p>
-        <button class="butn">Browse</button>
-    </div>
-
-    <div class="tile">
-        <img src ="/public/corduroy.jpg " alt= "Children's books" className="tile-img"/>
-        <p>Children's Books</p>
-        <button class="butn">browse</button>
-       </div>
-
-       <div class="tile">
-    <img src ="/public/young_adult.jpg " alt= "Young-Adult" className="tile-img"/>
-        <p>Young Adult</p>
-        <button class="butn">Browse</button>
-    </div>
-
-    <div class="tile">
-    <img src ="/public/Academic_book.jpg" alt= "Textbooks & Academics" className="tile-img"/>
-        <p>Textbooks & Academics</p>
-        <button class="butn">Browse</button>
-    </div>
-      </div>
-     </div>
     );
 }
 

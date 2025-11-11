@@ -102,7 +102,7 @@ router.get('/category', async (re, res) => {
                 GROUP BY Selection.BookID
                 ORDER BY Selection.BookID 
                 LIMIT ? OFFSET ?`, 
-                [`%${category}%`, String(pageSize + 1), String(offset)]); 
+                [`%\'${category}\'%`, String(pageSize + 1), String(offset)]); 
             //check if there is next book
             hasNext = books.length > pageSize;
             if (hasNext){

@@ -1,0 +1,20 @@
+.category-title{
+    background-color: antiquewhite;
+    justify-self: center;
+    text-align: center;
+    width: 100%;
+    padding: 1rem;
+    border-radius: 10px;
+}
+
+.category-booklist{
+    box-sizing: border-box;
+    padding: 1rem;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+}
