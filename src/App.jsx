@@ -57,7 +57,7 @@ function InnerApp() {
         {/* Navigation Bar */}
         <nav className="navbar">
           <div className="nav-brand">
-            <h2>Bookstore </h2>
+            <h2>NovaNovels</h2>
           </div>
           <div className="nav-links">
             <div className='nav-link'>

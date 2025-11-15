@@ -17,11 +17,16 @@ function Home() {
 
     return (
         <div>
-             
-        <div className="home-container">
-            <h1 className="home-title">Hello, Nice to meet you!</h1>
-            <p className="home-description">Explore the amazing inventory of books we have!</p>
+             <img
+               src="/Headerimg.png"     // <-- Change to your image path
+               alt="Header"
+               className="top-header-image"
+               />
 
+        <div className="home-container">
+            
+            <h2 className="Browse-title">Start Exploring</h2>
+            <p>Use the categories below to quickly find what matters most to you.</p>
         </div>
         <div className="parallax"></div> 
         <div class="tile-container">
