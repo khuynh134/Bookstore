@@ -5,28 +5,26 @@ import jwt from 'jsonwebtoken';
 
 const router = express.Router()
 
-//register 
+//registration
 router.post('/register', async (req, res) => {
     const { username, email, password } = req.body || {};
-    // Basic input validation
+    // Validate the input
     if (!username || !email || !password) {
-        return res.status(400).json({ message: 'username, email and password are required' });
+        return res.status(400).json({ message: 'username, email and password are needed' });
     }
-
     try {
-        console.log('Registering user:', username, email);
+        console.log('Registering user: ', username, email);
         const db = await connectToDatabase();
         const [rows] = await db.query('SELECT * FROM users WHERE email = ?', [email]);
-        if (rows.length > 0) {
-            return res.status(409).json({ message: 'user already existed' });
+        if( rows.length > 0 ){
+            return res.status(409).json({ message: 'the user already exists' });
         }
 
         const hashPassword = await bcrypt.hash(password, 10);
         await db.query('INSERT INTO users (username, email, password) VALUES (?, ?, ?)',
             [username, email, hashPassword]);
-        res.status(201).json({ message: 'User created successfully' });
+        res.status(201).json({ message: 'user created successfully' });
     } catch (error) {
-        // Logging the full error to help with debugging
         console.error('Error in /auth/register:', error);
         res.status(500).json({ message: 'Internal server error', detail: error.message });
     }
@@ -112,7 +110,55 @@ router.get('/profile', verifyToken, async (req, res) => {
     }
 })
 
-//logout implementation by clearing refresh token 
+// update user profile (username, email, user_address)
+router.put('/profile', verifyToken, async (req, res) => {
+    try{
+        const db = await connectToDatabase();
+        const userId = req.userId;
+        const { username, email, user_address } = req.body || {};
+
+        if( !username && !email && !user_address ){
+            return res.status(400).json({ message: 'No fields to update' });
+        }
+
+        const fields = [];
+        const params = [];
+
+        if(username){
+            fields.push('username = ?');
+            params.push(username);
+        }
+
+        if(email){
+            // make sure email is not used by another user 
+            const [existing] = await db.query('SELECT user_id FROM users WHERE email = ? and user_id != ?', [email, userId]);
+            if( existing.length > 0) {
+                return res.status(409).json({message: 'Email already in use by another account'});
+            }
+            fields.push('email = ?');
+            params.push(email);
+        }
+
+        if(user_address){
+            fields.push('user_address = ?');
+            params.push(user_address);
+        }
+
+        params.push(userId);
+
+        const sql = `UPDATE users SET ${fields.join(', ')} WHERE user_id = ?`;
+        await db.query(sql, params);
+
+        //return info with safe fields only
+        const [rows] = await db.query('SELECT user_id, username, email, user_address FROM users WHERE user_id = ?', [userId]);
+        return res.status(200).json({ user: rows[0] });
+    } catch (error) {
+        console.error('Error in /auth/profile (PUT):', error);
+        return res.status(500).json({message: 'Server error', detail: error.message });
+    }
+})
+
+//logout by cleaering refresh token cookie
 router.post('/logout', (req, res) => {
     //if there is any refresh token cookie, clear it
     res.clearCookie('refreshToken', {httpOnly: true, sameSite: 'lax', secure: false});

@@ -6,6 +6,7 @@ import cors from 'cors'
 import cookieParser from 'cookie-parser'
 import authRouter from './routes/authRoutes.js';
 import searchRouter from './routes/searchRoutes.js';
+import cartRouter from './routes/cartRoutes.js';
 
 dotenv.config()
 
@@ -19,6 +20,8 @@ app.use(express.urlencoded({ extended: true }))
 app.use(cookieParser())
 
 app.use('/auth', authRouter);
+
+app.use('/api/cart', cartRouter);
 
 const db = mysql.createConnection({
     host: process.env.DB_HOST,

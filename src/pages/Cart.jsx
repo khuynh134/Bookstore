@@ -1,20 +1,57 @@
 import "./Cart.css";
 import "@fortawesome/fontawesome-free";
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function Cart() {
   const API_BASE = "http://localhost:8081";
-  const CART_ID = 1; // this is for testing purposes but must be changed to dynamic
+  const navigate = useNavigate();
 
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  //helper to get auth headers
+  const getAuthHeaders = () => {
+    const token = localStorage.getItem("token");
+    if(!token){
+      navigate('/login');
+      return null;
+    }
+    return{
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    };
+  }
+
+  //Check if user is logged in, redifrext if not logged in
+  const checkAuth = () => {
+    const token = localStorage.getItem("token");
+    if(!token){
+      alert('Please log in to view your cart.');
+      navigate('/login');
+      return false;
+    }
+    return true;
+  };
+
   async function loadCart() {
+    if(!checkAuth()) return;
     setLoading(true);
     try {
-      const res = await fetch(`${API_BASE}/api/cart?cart_id=${CART_ID}`, {
+      const headers = getAuthHeaders();
+      if(!headers) return;
+
+      const res = await fetch(`${API_BASE}/api/cart`, {
+        method: 'GET',
+        headers: headers,
         credentials: "include",
       });
+
+      if(res.status === 401 || res.status === 403){
+        alert('Your session has expired. Please log in again.');
+        navigate('/login');
+        return;
+      }
       const data = await res.json();
       setItems(data.items || []);
     } catch (e) {
@@ -26,7 +63,12 @@ function Cart() {
 
   async function loadCartQuiet() {
   try {
-    const res = await fetch(`${API_BASE}/api/cart?cart_id=${CART_ID}`, {
+    const headers = getAuthHeaders();
+    if(!headers) return;
+    
+    const res = await fetch(`${API_BASE}/api/cart`, {
+      method: 'GET',
+      headers: headers,
       credentials: "include",
     });
     const data = await res.json();
@@ -46,9 +88,14 @@ function Cart() {
   setItems(cur => cur.filter(x => x.item_id !== itemId));
 
   try {
+    const headers = getAuthHeaders();
+    if(!headers) {
+      setItems(prev);
+      return;
+    }
     const res = await fetch(
-      `${API_BASE}/api/cart/items/${itemId}?cart_id=${CART_ID}`,
-      { method: "DELETE", credentials: "include" }
+      `${API_BASE}/api/cart/items/${itemId}`,
+      { method: "DELETE", headers: headers, credentials: "include" }
     );
 
     if (!res.ok) {
@@ -73,12 +120,15 @@ function Cart() {
   async function setItemQuantity(itemId, newQty) {
     const qty = Math.max(1, Number(newQty) || 1);
     try {
+      const headers = getAuthHeaders();
+      if(!headers) return;
+
       const res = await fetch(
-        `${API_BASE}/api/cart/items/${itemId}?cart_id=${CART_ID}`,
+        `${API_BASE}/api/cart/items/${itemId}`,
         {
           method: "PATCH",
+          headers: headers,
           credentials: "include",
-          headers: { "Content-Type": "application/json", Accept: "application/json" },
           body: JSON.stringify({ quantity: qty }),
         }
       );
