@@ -1,24 +1,15 @@
 import { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import axios from 'axios';
 
 import './AuthorPage.css';
 import BookWithAddToCart from '../components/BookWithAddToCart';
+import BackButton from '../components/BackButton';
 
 const PORT = 8081;
 // compose and return the backend server address to get the data.
 function getBackendAdr(){
     return `http://localhost:${PORT}/s/author`;
-}
-
-// render the button to go back to last page
-function renderBackButton(){
-    const navigate = useNavigate();
-    return (
-        <button onClick={()=>{navigate(-1)}}>
-            {"<"} Back
-        </button>
-    );
 }
 
 export default function AuthorPage(){
@@ -51,7 +42,7 @@ export default function AuthorPage(){
     if (authorName == null || authorName.length == 0){
         return (
             <div>
-                {renderBackButton()}
+                <BackButton />
                 <h2>
                     No Such Author...
                 </h2>
@@ -60,15 +51,17 @@ export default function AuthorPage(){
     }
 
     return (
-        <div className="author-page">
-            {renderBackButton()}
-            <h1 className="author-title">
-                {authorName}
-            </h1>
-            <div className="author-book-list">
-                {bookList.map(book=>{
-                    return <BookWithAddToCart key={book.BookID} book={book}/>
-                })}
+        <div>
+            <BackButton />
+            <div className="author-page">
+                <h1 className="author-title">
+                    {authorName}
+                </h1>
+                <div className="author-book-list">
+                    {bookList.map(book=>{
+                        return <BookWithAddToCart key={book.BookID} book={book}/>
+                    })}
+                </div>
             </div>
         </div>
     )

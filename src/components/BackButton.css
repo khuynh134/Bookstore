@@ -1,0 +1,8 @@
+.back-button{
+    margin: 0;
+    background-color: transparent;
+}
+
+.back-button:hover{
+    background-color: white;
+}

@@ -1,6 +1,6 @@
 import AuthorLinks from "./AuthorLinks";
 import './BookWithAddToCart.css';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 export default function BookWithAddToCart({book}){
     const navigate = useNavigate();
@@ -75,10 +75,16 @@ export default function BookWithAddToCart({book}){
     
     return (
         <div key={book.BookID} className='book'>
-            <img src={bookCoverURL}/>
+            <div className="book-cover">
+                <Link  to={`/book/${book.BookID}`}>
+                    <img src={bookCoverURL} alt={`Cover of ${book.Title}`} />
+                </Link>
+            </div>
             <div className='book-info'>
                 <div className='book-info-top'>
-                    <h4>{book.Title}</h4>
+                    <Link className="book-detail-link" to={`/book/${book.BookID}`}>
+                        <h4>{book.Title}</h4>
+                    </Link>
                     <AuthorLinks authorNames={book.AuthorName} authorIDs={book.AuthorID}/>
                     <p><b>Genre:</b> {categories}</p>
                     <p><b>ID:</b> {book.BookID}</p>
