@@ -77,9 +77,9 @@ export default function BookWithAddToCart({book}){
                 <div className='book-info-top'>
                     <h4>{book.Title}</h4>
                     <AuthorLinks authorNames={book.AuthorName} authorIDs={book.AuthorID}/>
-                    <p>Genre: {categories}</p>
-                    <p>ID: {book.BookID}</p>
-                    <p>ISBN: {book.ISBN}</p>
+                    <p><b>Genre:</b> {categories}</p>
+                    <p><b>ID:</b> {book.BookID}</p>
+                    <p><b>ISBN:</b> {book.ISBN}</p>
                 </div>
                 <div className='book-info-bottom'>
                     {stock_msg.length > 0 && <p className="stock">{stock_msg}</p> }

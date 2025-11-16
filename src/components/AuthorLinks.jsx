@@ -4,7 +4,7 @@ import './AuthorLinks.css'
 export default function AuthorLinks({authorIDs, authorNames}){
     const element = [];
     if(authorIDs && authorIDs.length != 0 && authorNames && authorNames.length == authorIDs.length){
-        element.push("Author: ");
+        element.push(<b>By: </b>);
         for (let i = 0; i < authorIDs.length; i++){
             element.push(
                 <Link className="author_link" key={authorIDs[i]} to={`/author/${authorIDs[i]}`}>
