@@ -76,3 +76,22 @@
     width: 100%;
     color:black;
 }
+
+/* specific add-to-cart button styling */
+.add-to-cart-button{
+    background-color: #f0d9d0ee;
+    width: 100%;
+    color: black;
+    border: 1px solid rgba(0,0,0,0.06);
+    padding: 0.5rem 0.6rem;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.add-to-cart-button.disabled,
+.add-to-cart-button:disabled{
+    background-color: #dcd9d9;
+    color: #6e6b6b;
+    cursor: not-allowed;
+    border-color: #ddd;
+}

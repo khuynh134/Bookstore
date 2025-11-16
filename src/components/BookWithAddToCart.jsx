@@ -19,6 +19,9 @@ export default function BookWithAddToCart({book}){
         stock_msg = `${book.Stock} Left`;
     }
 
+    // Disable "Add to Cart" button if out of stock
+    const isNotInStock = book.Stock == null || book.Stock === 0;
+
     // process book category strings
     let categories =  (book.Category)? book.Category : "";
     categories = categories.replace(/[\[\]\']/g, '');
@@ -85,10 +88,11 @@ export default function BookWithAddToCart({book}){
                     {stock_msg.length > 0 && <p className="stock">{stock_msg}</p> }
                     <p className='book-price'><b>${book.Price}</b></p>
                     <button
-                    onClick={handleAddToCart}
-                    disabled={book.Stock == null || book.Stock === 0}
+                        className={`add-to-cart-button ${isNotInStock ? 'disabled' : ''}`}
+                        onClick={handleAddToCart}
+                        disabled={isNotInStock}
                     >
-                        Add to Cart
+                        Add to Cart 
                     </button>
                 </div>
             </div>
