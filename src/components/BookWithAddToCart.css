@@ -6,10 +6,6 @@
     border-radius: 5px;
 }
 
-.book:hover{
-    background-color: #e0b9b0ee;
-}
-
 .book-info{
     box-sizing: border-box;
     display: flex;
