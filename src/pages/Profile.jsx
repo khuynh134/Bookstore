@@ -179,7 +179,7 @@ function Profile() {
 
                     <div className="user-orders">
                         <h2 className="profile-info-header">User's Orders</h2>
-                        <p className="no-orders-message">No orders placed yet.</p>
+                        
                         <button className="profile-button"
                         onClick={() => navigate('/order-history')}
                         >Order History</button>
