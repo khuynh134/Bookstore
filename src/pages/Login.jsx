@@ -27,8 +27,15 @@ const Login = () => {
                                 navigate('/profile');
                         }
 
-        } catch (error) {
+        } catch (error) { // Handle error outside of status 2xx
             console.log(error);
+            if (error.response.data.message){ // alert to show error message from backend
+                let message = error.response.data.message;
+                if (error.response.data.detail){
+                    message += error.response.data.detail;
+                }
+                alert(message);
+            }
         }
     };
     return (

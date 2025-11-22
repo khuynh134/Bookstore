@@ -11,7 +11,10 @@
 
 .pagination button,
 .pagination div{
-    width: 10%;
+    background-color: transparent;
+    width: 5%;
+    font-size: large;
+    font-weight: bold;
 }
 
 .page-number{

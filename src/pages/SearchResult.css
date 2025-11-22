@@ -1,8 +1,9 @@
 .result-title{
-    padding: 5px;
-    background-color: #DFA8A3;
-    border: 2px outset #d0b9b0ff;
-    color: white;
+    box-sizing: border-box;
+    border-bottom: 1px solid black;
+    padding: 1rem;
+    background-color: transparent;
+    color: inherit;
 }
 
 .search-result-books{
@@ -14,5 +15,5 @@
     gap: 0.5rem;
     width: 100%;
     margin: 0 auto;
-    background-color: #f0d9d0ee;
+    background-color: transparent;
 }

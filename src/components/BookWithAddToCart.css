@@ -6,10 +6,6 @@
     border-radius: 5px;
 }
 
-.book:hover{
-    background-color: #e0b9b0ee;
-}
-
 .book-info{
     box-sizing: border-box;
     display: flex;
@@ -35,7 +31,15 @@
     font-size: small;
 }
 
-.book h4{
+.book-detail-link{
+    color: black;
+}
+
+.book-detail-link :hover{
+    color: darkblue;
+}
+
+.book-detail-link h4{
     box-sizing: border-box;
     padding: 5px 0;
     margin: 5px 0;
@@ -43,11 +47,16 @@
     overflow: auto;
 }
 
-.book img{
+.book-cover{
     box-sizing: border-box;
     height: 100%;
     width: 40%;
     padding: 0.5rem;
+}
+.book-cover img{
+    box-sizing: border-box;
+    height: 100%;
+    width: 100%;
     object-fit: contain;
 }
 

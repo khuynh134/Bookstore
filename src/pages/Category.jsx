@@ -16,7 +16,7 @@ export default function BooksOfCategory(){
     const [isLoading, setLoading] = useState(false)
     const [page, setPage] = useState(1)
     const [hasNext, setHasNext] = useState(false)
-    const pageSize = 24 // # of books per page
+    const PAGE_SIZE = 12 // # of books per page
     let category = useParams().category // what to search for
 
     // when category change, reset the page number to default
@@ -35,7 +35,7 @@ export default function BooksOfCategory(){
             params:{
                 category: category,
                 page: page,
-                pageSize: pageSize
+                pageSize: PAGE_SIZE
             }
         })
         .then((response) => {

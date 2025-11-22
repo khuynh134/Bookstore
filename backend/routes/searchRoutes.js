@@ -22,7 +22,7 @@ router.get('/', async (re, res) => {
         let hasNext = false;
         try{
             [books] = await db.execute(`SELECT
-                Book.*,
+                Book.BookID, Book.Title, Book.ISBN, Book.Price, Book.Stock, Book.Category, Book.BookCoverURL,
                 GROUP_CONCAT(Author.AuthorID) as AuthorID,
                 GROUP_CONCAT(Author.AuthorName) as AuthorName
                 FROM Book 
@@ -64,7 +64,7 @@ router.get('/author', async (re, res) => {
 
         // Query database for books related to the author
         const [books] = await db.execute(`SELECT 
-            Book.*,
+            Book.BookID, Book.Title, Book.ISBN, Book.Price, Book.Stock, Book.Category, Book.BookCoverURL,
             GROUP_CONCAT(Author.AuthorID) as AuthorID,
             GROUP_CONCAT(Author.AuthorName) as AuthorName
             FROM (SELECT DISTINCT BookID FROM Book_Author WHERE AuthorID = ? ) AS Selection
@@ -93,16 +93,19 @@ router.get('/category', async (re, res) => {
         let hasNext = false;
         try{
             [books] = await db.execute(`SELECT
-                Selection.*,
+                Book.BookID, Book.Title, Book.ISBN, Book.Price, Book.Stock, Book.Category, Book.BookCoverURL,
                 GROUP_CONCAT(Author.AuthorID) as AuthorID,
                 GROUP_CONCAT(Author.AuthorName) as AuthorName
-                FROM (SELECT * FROM Book WHERE Category LIKE ?) AS Selection
-                LEFT JOIN Book_Author ON Book_Author.BookID = Selection.BookID
-                LEFT JOIN Author ON Book_Author.AuthorID = Author.AuthorID
-                GROUP BY Selection.BookID
-                ORDER BY Selection.BookID 
+                FROM Category
+                INNER JOIN Book_Category ON Book_Category.CategoryID = Category.CategoryID
+                INNER JOIN Book ON Book.BookID = Book_Category.BookID
+                LEFT JOIN Book_Author ON Book_Author.BookID = Book.BookID
+                LEFT JOIN Author ON Author.AuthorID = Book_Author.AuthorID
+                WHERE Category.Category = ?
+                GROUP BY Book.BookID
+                ORDER BY Book.BookID 
                 LIMIT ? OFFSET ?`, 
-                [`%\'${category}\'%`, String(pageSize + 1), String(offset)]); 
+                [`${category}`, String(pageSize + 1), String(offset)]); 
             //check if there is next book
             hasNext = books.length > pageSize;
             if (hasNext){
@@ -116,6 +119,34 @@ router.get('/category', async (re, res) => {
         splitAuthorStrings(books);
 
         res.json({books, hasNext});
+    }
+);
+
+// Handle request for detail about a book
+router.get('/book', async (re, res) => {
+        const db = await connectToDatabase();
+        const id = re.query.bookID;
+        console.log(`Receive request for book ID ${id}`)
+        let detail = null;
+        try{
+            [detail]=await db.execute(`SELECT
+                Book.*,
+                GROUP_CONCAT(Author.AuthorID) as AuthorID,
+                GROUP_CONCAT(Author.AuthorName) as AuthorName
+                FROM Book
+                LEFT JOIN Book_Author ON Book_Author.BookID = Book.BookID
+                LEFT JOIN Author ON Author.AuthorID = Book_Author.AuthorID
+                WHERE Book.BookID = ?
+                GROUP BY Book.BookID
+                ORDER BY Book.BookID`, [id]);
+        }catch(error){
+            res.status(500).json({error: error.message});
+        }
+
+        splitAuthorStrings(detail);
+        detail = detail.length > 0 ? detail[0] : null;
+
+        res.json({detail});
     }
 );
 

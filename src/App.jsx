@@ -14,6 +14,7 @@ import AuthorPage from './pages/AuthorPage';
 import Register from './pages/Register';
 import Login from './pages/Login';
 import BooksOfCategory from './pages/Category';
+import BookDetail from './pages/BookDetail';
 import { AuthProvider, useAuth } from './context/AuthContext';
 
 function App() {
@@ -101,6 +102,7 @@ function InnerApp() {
             <Route path="/author/:authorID" element={<AuthorPage/>} />
             <Route path="/login" element={<Login />} />
             <Route path="/category/:category" element = {<BooksOfCategory/>} />
+            <Route path="/book/:bookID" element = {<BookDetail/>} />
           </Routes>
         </main>
 
