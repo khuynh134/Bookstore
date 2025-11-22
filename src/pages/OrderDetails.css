@@ -1,0 +1,34 @@
+.order-details {
+  max-width: 900px;       
+  margin: 0 auto;         
+  padding: 30px 20px;
+}
+
+.order-details table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.order-details td
+{
+    text-align: center;
+}
+.order-details th {
+  background-color: #F6D673; 
+  color: #333;
+  font-weight: 600;
+  padding: 12px;
+  text-align: center;
+}
+
+.order-details {
+  max-width: 1400px; 
+  margin: 0 auto;
+  padding: 30px 20px;
+}
+
+.order-details img {
+  width: 120px;  
+  height: auto;  
+  display: block;
+  margin: 0 auto; 
+}

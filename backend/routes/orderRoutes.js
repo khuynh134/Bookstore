@@ -125,6 +125,103 @@ router.post('/', verifyToken, async (req, res) => {
         return res.status(500).json({ message: error?.message || 'Failed to create order' });
     }     
 });
-         
+router.get('/me', verifyToken, async (req, res) => {
+  try {
+    const db = await connectToDatabase();
+    const userId = req.userId;
+
+    const [rows] = await db.query(
+      `SELECT 
+          o.order_id,
+          o.status,
+          o.currency,
+          o.subtotal_cents,
+          o.shipping_cents,
+          o.tax_cents,
+          o.total_cents,
+          o.payment_status,
+          o.created_at,
+          COALESCE(SUM(oi.quantity), 0) AS total_quantity
+       FROM orders o
+       LEFT JOIN order_items oi ON oi.order_id = o.order_id
+       WHERE o.user_id = ?
+       GROUP BY 
+          o.order_id,
+          o.status,
+          o.currency,
+          o.subtotal_cents,
+          o.shipping_cents,
+          o.tax_cents,
+          o.total_cents,
+          o.payment_status,
+          o.created_at
+       ORDER BY o.created_at DESC`,
+      [userId]
+    );
+
+    return res.json(rows);
+  } catch (error) {
+    console.error('Error fetching orders for user:', error);
+    return res.status(500).json({ message: 'Failed to load orders' });
+  }
+});
+
+// GET -> full order details
+router.get('/:orderId', verifyToken, async (req, res) => {
+  try {
+    const db = await connectToDatabase();
+    const userId = req.userId;
+    const orderId = req.params.orderId;
+
+    // ensure user owns this order
+    const [orderRows] = await db.query(
+      `SELECT 
+        order_id,
+        status,
+        currency,
+        subtotal_cents,
+        shipping_cents,
+        tax_cents,
+        total_cents,
+        payment_last4,
+        payment_brand,
+        payment_status,
+        shipping_address,
+        created_at
+      FROM orders
+      WHERE order_id = ? AND user_id = ?
+      LIMIT 1`,
+      [orderId, userId]
+    );
+
+    if (orderRows.length === 0) {
+      return res.status(404).json({ message: 'Order not found' });
+    }
+
+
+    const [items] = await db.query(
+      `SELECT 
+        oi.book_id,
+        b.Title,
+        b.BookCoverURL,
+        oi.quantity,
+        oi.unit_price_cents
+      FROM order_items oi
+      JOIN book b ON b.BookID = oi.book_id
+      WHERE oi.order_id = ?`,
+      [orderId]
+    );
+
+    return res.json({
+      order: orderRows[0],
+      items
+    });
+
+  } catch (error) {
+    console.error("Order details error:", error);
+    res.status(500).json({ message: "Failed to load order details" });
+  }
+});
+
 
 export default router; 
