@@ -256,7 +256,9 @@ function Cart() {
               </tr>
             </tbody>
           </table>
-          <button className="buttn">Proceed to Checkout</button>
+          <button className="button" onClick={() => navigate("/checkout")}>
+            Proceed to Checkout
+          </button>
         </div>
       </section>
     </div>

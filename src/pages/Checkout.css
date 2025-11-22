@@ -1,0 +1,112 @@
+.checkout {
+    padding: 20px;
+    max-width: 600px;
+    margin: 0 auto;
+    background-color: #f9e4bc;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.checkout-items {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.checkout-item {
+    /* Use a 3-column grid: title | quantity | price */
+    display: grid;
+    grid-template-columns: 1fr 110px 100px;
+    gap: 12px;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #ddd;
+    color: #333;
+}
+
+.checkout-item > span {
+    display: block;
+}
+
+.checkout-item > span:nth-child(2),
+.checkout-item > span:nth-child(3) {
+    text-align: right;
+    white-space: nowrap;
+}
+
+/* Make titles wrap if long */
+.checkout-item > span:first-child {
+    overflow-wrap: anywhere;
+}
+
+/* Responsive: stack on small screens */
+@media (max-width: 480px) {
+    .checkout-item {
+        grid-template-columns: 1fr;
+    }
+    .checkout-item > span:nth-child(2),
+    .checkout-item > span:nth-child(3) {
+        text-align: left;
+        white-space: normal;
+    }
+}
+
+.checkout-h2 {
+    text-align: center;
+    color: #A45A52;
+}
+
+.checkout-info {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    color: #A45A52;
+}
+
+.calculate-h3 {
+    font-weight: bold;
+    text-align: right;
+    color: #333;
+}
+
+.address-form, .payment-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.address-input, .payment-input {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid #804545;
+    background-color: white;
+    color: #333;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.calculate-total {
+    font-weight: bold;
+    text-align: right;
+    color: #333;
+}
+
+.place-order-button {
+    display: flex;
+    justify-content: center;
+    background-color: #b58783;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+}
+.place-order-button:hover {
+    background-color: #bd6f69;
+}

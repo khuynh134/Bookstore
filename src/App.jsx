@@ -9,6 +9,7 @@ import Profile from './pages/Profile';
 import SearchResult from './pages/SearchResult';
 import SearchBar from './components/SearchBar';
 import Cart from './pages/Cart';
+import Checkout from './pages/Checkout';
 import AuthorPage from './pages/AuthorPage';
 import Register from './pages/Register';
 import Login from './pages/Login';
@@ -95,6 +96,7 @@ function InnerApp() {
             <Route path="/profile" element={isAuthenticated ? <Profile /> : <Navigate to="/login" replace />} />
             <Route path="/s/:keyword" element={<SearchResult/>} />
             <Route path="/cart" element={<Cart />} />
+            <Route path="/checkout" element={<Checkout />} />
             <Route path="/register" element={<Register />} />
             <Route path="/author/:authorID" element={<AuthorPage/>} />
             <Route path="/login" element={<Login />} />

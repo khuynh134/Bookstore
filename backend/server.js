@@ -7,6 +7,7 @@ import cookieParser from 'cookie-parser'
 import authRouter from './routes/authRoutes.js';
 import searchRouter from './routes/searchRoutes.js';
 import cartRouter from './routes/cartRoutes.js';
+import ordersRouter from './routes/orderRoutes.js';
 
 dotenv.config()
 
@@ -22,6 +23,7 @@ app.use(cookieParser())
 app.use('/auth', authRouter);
 
 app.use('/api/cart', cartRouter);
+app.use('/api/orders', ordersRouter);
 
 const db = mysql.createConnection({
     host: process.env.DB_HOST,
