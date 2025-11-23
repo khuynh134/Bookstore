@@ -8,6 +8,7 @@ function Cart() {
   const navigate = useNavigate();
 
   const [items, setItems] = useState([]);
+  const [availability, setAvailability] = useState([]);
   const [loading, setLoading] = useState(true);
 
   //helper to get auth headers
@@ -33,6 +34,18 @@ function Cart() {
     }
     return true;
   };
+  
+  // helper function to check the stock of the book
+  async function checkStock(bookID) {
+    try {
+      const res = await fetch(`${API_BASE}/stock?bookID=${bookID}`);
+      return (await res.json()).stock;
+    } catch (e) {
+      console.error("Stock fetch error:", e);
+      return 0;
+    }
+  }
+
 
   async function loadCart() {
     if(!checkAuth()) return;
@@ -205,16 +218,16 @@ function Cart() {
                         −
                       </button>
                       <input
-                        type="number"
+                        type="text"
+                        inputMode ="numeric"
+                        pattern="[0-9]*"
                         min="1"
                         value={it.quantity}
                         onChange={(e) => {
-                          const v = e.target.value;
-                          // update on blur/enter to avoid spamming server while typing
-                          e.target.onblur = () => setItemQuantity(it.item_id, v);
+                          setItemQuantity(it.item_id, e.target.value);
                         }}
-                        onKeyDown={(e) => {
-                          if (e.key === "Enter") e.currentTarget.blur();
+                        onBlur={(e) => {
+                          setItemQuantity(it.item_id, e.target.value);
                         }}
                         style={{ width: 56, textAlign: "center" }}
                       />
