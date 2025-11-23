@@ -8,7 +8,7 @@ function Cart() {
   const navigate = useNavigate();
 
   const [items, setItems] = useState([]);
-  const [availability, setAvailability] = useState([]);
+  const [stockMap, setStockMap] = useState({});
   const [loading, setLoading] = useState(true);
 
   //helper to get auth headers
@@ -35,11 +35,13 @@ function Cart() {
     return true;
   };
   
-  // helper function to check the stock of the book
+  // helper function to check the stock of the book and update stockMap
   async function checkStock(bookID) {
     try {
       const res = await fetch(`${API_BASE}/stock?bookID=${bookID}`);
-      return (await res.json()).stock;
+      const data = await res.json();
+      setStockMap(prev => ({ ...prev, [bookID]: data.stock }));
+      return data.stock;
     } catch (e) {
       console.error("Stock fetch error:", e);
       return 0;
@@ -67,6 +69,11 @@ function Cart() {
       }
       const data = await res.json();
       setItems(data.items || []);
+
+      // update stock map for all items
+      for (const item of data.items || []) {
+        await checkStock(item.book_id);
+      }
     } catch (e) {
       console.error("loadCart error:", e);
     } finally {
@@ -180,12 +187,13 @@ function Cart() {
               <td>Price</td>
               <td>Quantity</td>
               <td>Subtotal</td>
+              <td></td>
             </tr>
           </thead>
           <tbody>
             {items.length === 0 ? (
               <tr>
-                <td colSpan="6" style={{ textAlign: "center" }}>
+                <td colSpan="7" style={{ textAlign: "center" }}>
                   Your cart is empty.
                 </td>
               </tr>
@@ -226,10 +234,14 @@ function Cart() {
                         onChange={(e) => {
                           setItemQuantity(it.item_id, e.target.value);
                         }}
-                        onBlur={(e) => {
+                        onBlur={async (e) => {
+                          const stock = await checkStock(it.book_id);
+                          if (stock != null && e.target.value > stock){
+                            alert(`${it.Title}: Only ${stock} items in stock.`);
+                          }
                           setItemQuantity(it.item_id, e.target.value);
                         }}
-                        style={{ width: 56, textAlign: "center" }}
+                        style={{ width: 30, textAlign: "center" }}
                       />
                       <button
                         className="qty-btn"
@@ -242,6 +254,11 @@ function Cart() {
                   </td>
                   <td>
                     {(Number(it.unit_price) * Number(it.quantity)).toFixed(2)}
+                  </td>
+                  <td>
+                    <p>
+                      {stockMap[it.book_id] < it.quantity && `Only ${stockMap[it.book_id]} in stock`}
+                    </p>
                   </td>
                 </tr>
               ))

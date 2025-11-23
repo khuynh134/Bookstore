@@ -37,6 +37,18 @@
     padding: 10px 5px 10px 15px;
 }
 
+#cart table td:nth-child(7){
+    width: 30px;
+    text-align: center;
+    white-space: normal !important;
+}
+#cart table td:nth-child(7) p{
+    margin: 0;
+    padding: 0;
+    color: red;
+    overflow-wrap: normal;
+}
+
 #cart table thead{
     border:1px solid #cbcfca;
     border-left:none;

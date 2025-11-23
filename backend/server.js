@@ -137,7 +137,20 @@ app.patch('/api/cart/items/:itemId', async (req, res) => {
   }
 });
 
-
+// Handle request for stock of a book with bookID
+app.get('/stock', async (re, res) => {
+        const id = re.query.bookID;
+        console.log(`Receive request for stock of book ID ${id}`)
+        let stock = null;
+        try{
+            const [result] = await db.execute(`SELECT Stock FROM Book WHERE BookID = ?`, [id]);
+            stock = (result && result.length != 0)? result[0].Stock : 0;
+        }catch(error){
+            res.status(500).json({error: error.message});
+        }
+        res.json({stock});
+    }
+);
 
 
 app.listen(PORT, () => {
