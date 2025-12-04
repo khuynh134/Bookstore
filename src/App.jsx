@@ -100,7 +100,7 @@ function InnerApp() {
             <Route path="/profile" element={isAuthenticated ? <Profile /> : <Navigate to="/login" replace />} />
             <Route path="/order-history" element={isAuthenticated ? <OrderHistory /> : <Navigate to="/login" replace />}/>
             <Route path="/orders/:orderId" element={<OrderDetails />} />
-            <Route path="/s/:keyword" element={<SearchResult/>} />
+            <Route path="/s/:keyword/:page" element={<SearchResult/>} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/checkout" element={<Checkout />} />
             <Route path="/register" element={<Register />} />
