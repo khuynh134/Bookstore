@@ -12,24 +12,24 @@ function getBackendAdr(){
 }
 
 export default function BooksOfCategory(){
-    const [books, setBooks] = useState([])
-    const [isLoading, setLoading] = useState(false)
-    const [page, setPage] = useState(1)
-    const [hasNext, setHasNext] = useState(false)
-    const PAGE_SIZE = 12 // # of books per page
-    let category = useParams().category // what to search for
-
-    // when category change, reset the page number to default
-    useEffect(() => {
-        setPage(1);
-    },[category])
+    const [books, setBooks] = useState([]);
+    const [isLoading, setLoading] = useState(false);
+    const [hasNext, setHasNext] = useState(false);
+    const PAGE_SIZE = 12; // # of books per page
+    let category = useParams().category; // what to search for
+    let page = useParams().page; // current page number
 
     // when either keyword change or page change
     useEffect(() => {
         if(!category) return;
+        if(!page || isNaN(page)){
+            page = 1;
+        }else{
+            page = parseInt(page);
+        }
 
         window.scrollTo(0,0);
-        setLoading(true)
+        setLoading(true);
 
         axios.get(getBackendAdr(), {
             params:{
@@ -66,13 +66,13 @@ export default function BooksOfCategory(){
     return (
         <div>
             <h1 className='category-title'>{category}</h1>
-            <Pagination page={page} setPage={setPage} hasNext={hasNext}/>
+            <Pagination page={page} url={`/category/${encodeURIComponent(category)}/`} hasNext={hasNext}/>
             <div className='category-booklist'>
                 {books.map((book)=>{
                     return <BookWithAddToCart book={book}/>;
                 })}
             </div>
-            <Pagination page={page} setPage={setPage} hasNext={hasNext}/>
+            <Pagination page={page} url={`/category/${encodeURIComponent(category)}/`} hasNext={hasNext}/>
         </div>
     );
 }

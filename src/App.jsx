@@ -106,7 +106,7 @@ function InnerApp() {
             <Route path="/register" element={<Register />} />
             <Route path="/author/:authorID" element={<AuthorPage/>} />
             <Route path="/login" element={<Login />} />
-            <Route path="/category/:category" element = {<BooksOfCategory/>} />
+            <Route path="/category/:category/:page" element = {<BooksOfCategory/>} />
             <Route path="/book/:bookID" element = {<BookDetail/>} />
           </Routes>
         </main>

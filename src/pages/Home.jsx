@@ -38,7 +38,7 @@ function Home() {
                     alt= {category.alt} 
                     className="tile-img"/>
                     <p>{category.title}</p>
-                    <button class="butn" onClick={()=> {navigate(`/category/${category.data}`)}}>
+                    <button class="butn" onClick={()=> {navigate(`/category/${category.data}/1`)}}>
                         Browse
                     </button>
                 </div>
