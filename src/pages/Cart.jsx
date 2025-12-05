@@ -235,17 +235,23 @@ function Cart() {
                           setItemQuantity(it.item_id, e.target.value);
                         }}
                         onBlur={async (e) => {
-                          const stock = await checkStock(it.book_id);
-                          if (stock != null && e.target.value > stock){
+                          setItemQuantity(it.item_id, e.target.value);
+                          const stock = stockMap[it.book_id];
+                          if (stock != null && it.quantity + 1 > stock){
                             alert(`${it.Title}: Only ${stock} items in stock.`);
                           }
-                          setItemQuantity(it.item_id, e.target.value);
                         }}
                         style={{ width: 30, textAlign: "center" }}
                       />
                       <button
                         className="qty-btn"
-                        onClick={() => setItemQuantity(it.item_id, it.quantity + 1)}
+                        onClick={ async () => {
+                          setItemQuantity(it.item_id, it.quantity + 1)
+                          const stock = stockMap[it.book_id];
+                          if (stock != null && it.quantity + 1 > stock){
+                            alert(`${it.Title}: Only ${stock} items in stock.`);
+                          }
+                        }}
                         aria-label="Increase quantity"
                       >
                         +

@@ -32,9 +32,13 @@
     text-align:center;
 }
 
+#cart table td:nth-child(5){
+    justify-items: center;
+}
+
 #cart table td:nth-child(5) input{
     width: 70px;
-    padding: 10px 5px 10px 15px;
+    padding: 10px 5px 10px 5px;
 }
 
 #cart table td:nth-child(7){

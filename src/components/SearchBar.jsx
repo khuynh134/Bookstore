@@ -8,7 +8,13 @@ export default function SearchBar(){
 
     function handleSubmit(e){
         e.preventDefault();
-        if (!searchQuery) return;
+        if (!searchQuery){
+            alert("Search query cannot be empty.");
+            return;
+        }else if(searchQuery.length < 2){
+            alert("Search query should be at least 2 characters.");
+            return;
+        }
         navigate(`/s/${encodeURIComponent(searchQuery)}/1`);
     };
 
