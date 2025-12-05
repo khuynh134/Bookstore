@@ -50,3 +50,13 @@
     height: 0.1rem;
     background-color: darkblue;
 }
+
+.book-detail-right .add-to-cart-button {
+    box-sizing: border-box;
+    width: auto;
+    height: auto;
+    background-color: #bbccff;
+    font-size: 1.5rem;
+    font-weight: bold;
+    border-radius: 0.5rem;
+}   

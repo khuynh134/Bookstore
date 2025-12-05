@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import axios from 'axios';
 
 import './BookDetail.css';
 import AuthorLinks from '../components/AuthorLinks';
 import BackButton from '../components/BackButton';
+import AddToCartButton from '../components/AddToCartButton';
 
 const PORT = 8081;
 // compose and return the backend server address to get the data.
@@ -51,11 +52,14 @@ export default function BookDetail(){
                 <div className="book-detail-right">
                     <h1>{detail.Title}</h1>
                     <AuthorLinks authorIDs={detail.AuthorID} authorNames={detail.AuthorName}/>
+                    <p><b>Genre:</b> {detail.Category}</p>
                     <p><b>ISBN:</b> {detail.ISBN}</p>
                     <p><b>ID:</b> {detail.BookID}</p>
                     <p><b>Description:</b> {detail.Description}</p>
                     <div className='divider' />
+                    <p> current inventory: {detail.Stock}</p>
                     <p className="book-price"><strong>${detail.Price}</strong></p>
+                    <AddToCartButton className="add-to-cart-button" book={detail} />
                 </div>
             </div>
         </div>
