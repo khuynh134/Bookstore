@@ -11,12 +11,14 @@
     box-sizing: border-box;
     padding: 1rem;
     width: 40%;
+   
 }
 
 .book-detail-left img{
     box-sizing: border-box;
     object-fit: contain;
     margin-left:250px;
+     margin-left: 40px;
 }
 
 .book-detail-right{
@@ -74,7 +76,7 @@
   display: block;       
   font-family: inherit;
   text-align: left; 
-  color:balck;
+  color:black;
 }
 
 .review-textarea:focus {
@@ -88,6 +90,7 @@
 .book-review-section,
 .book-review-list, .rate-book-section  {
   margin-left: 250px;  
+  color: #333;
     
 }
 
