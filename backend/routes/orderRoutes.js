@@ -30,7 +30,7 @@ const verifyToken = (req, res, next) => {
     }
 }; 
 
-// POST /api/orders 
+// POST /api/orders  - create new order with stock validation
 router.post('/', verifyToken, async (req, res) => {
     const db = await connectToDatabase();
     const userId = req.userId;
@@ -40,26 +40,53 @@ router.post('/', verifyToken, async (req, res) => {
         return res.status(400).json({ message: 'Order must contain at least one item.' });
     }
 
-    // Compute subtotal 
-    const subtotal_cents = items.reduce((sum, it) => {
-        const unit = Number(it.unit_price_cents ?? Math.round((it.unit_price ?? 0) * 100)) || 0;
-        const qty = Number(it.quantity || 0) || 0;
-        return sum + unit * qty; 
-    }, 0);
+    try {
 
-    // compute total using numeric shipping_cents and tax_cents (both are cents)
-    const total_cents = subtotal_cents + (Number(shipping_cents) || 0) + (Number(tax_cents) || 0);
-
-    // Serialize address and payment info 
-    const shippingJson = shipping_address ? JSON.stringify(shipping_address) : null;
-    const paymentLast4 = payment_info?.last4 ?? null;
-    const paymentBrand = payment_info?.brand ?? null;                               // e.g., 'Visa', 'MasterCard'
-    const paymentToken = payment_info?.token ?? null;
-    const paymentStatus = payment_info?.status ?? 'pending';
-
-    try{
         await db.beginTransaction();
 
+        // Validate stock availability for each item
+        for(const it of items){
+            const bookId = it.book_id ?? it.BookID ?? it.bookId;
+            const qty = Number(it.quantity || 0) || 0;
+
+            const [books] = await db.query(
+              'SELECT BookID, Title, Stock FROM book WHERE BookID = ?',
+              [bookId]
+            );
+            if(books.length === 0){
+                await db.rollback();
+                return res.status(404).json({ message: `Book with ID ${bookId} not found.` });
+            }
+
+            if(books[0].Stock < qty){
+                await db.rollback();
+                return res.status(400).json({ 
+                  message: `Insufficient stock for book "${books[0].Title}"`,
+                  book_id: bookId,
+                  requested: qty,
+                  available: books[0].Stock
+                });
+            }
+        }
+
+        // Compute subtotal 
+        const subtotal_cents = items.reduce((sum, it) => {
+          const unit = Number(it.unit_price_cents ?? Math.round((it.unit_price ?? 0) * 100)) || 0;
+          const qty = Number(it.quantity || 0) || 0;
+        return sum + unit * qty; 
+        }, 0);
+
+        // compute total using numeric shipping_cents and tax_cents (both are cents)
+        const total_cents = subtotal_cents + (Number(shipping_cents) || 0) + (Number(tax_cents) || 0);
+
+        // Serialize address and payment info 
+        const shippingJson = shipping_address ? JSON.stringify(shipping_address) : null;
+        const paymentLast4 = payment_info?.last4 ?? null;
+        const paymentBrand = payment_info?.brand ?? null;                               // e.g., 'Visa', 'MasterCard'
+        const paymentToken = payment_info?.token ?? null;
+        const paymentStatus = payment_info?.status ?? 'pending';
+
+        // create order
         const [orderInsert] = await db.query(
             `INSERT INTO orders
             (user_id, cart_id, status, currency, subtotal_cents, shipping_cents, tax_cents, total_cents,
@@ -84,20 +111,25 @@ router.post('/', verifyToken, async (req, res) => {
 
         const orderId = orderInsert.insertId;
 
-        // insert items
+        // insert order items and decrement stock
         for (const it of items){
             const bookId = it.book_id ?? it.BookID ?? it.bookId;
             const qty = Number(it.quantity || 0) || 0;
             const unitPriceCents = Number(it.unit_price_cents ?? Math.round((it.unit_price ?? 0) * 100)) || 0;
-        
+            // insert order item
             await db.query(
                 'INSERT INTO order_items (order_id, book_id, quantity, unit_price_cents) VALUES (?, ?, ?, ?)',
                 [orderId, bookId, qty, unitPriceCents]
             );
+
+            // decrement stock
+            await db.query(
+                'UPDATE book SET Stock = Stock - ? WHERE BookID = ?',
+                [qty, bookId]
+            );
         }
 
         // Mark cart as converted / clear cart items
-        // If frontend didn't supply `cart_id`, try to find the user's active cart and clear that.
         let resolvedCartId = cart_id;
         if (!resolvedCartId) {
             const [userCarts] = await db.query('SELECT id FROM carts WHERE user_id = ? LIMIT 1', [userId]);
@@ -125,6 +157,7 @@ router.post('/', verifyToken, async (req, res) => {
         return res.status(500).json({ message: error?.message || 'Failed to create order' });
     }     
 });
+// GET /api/orders/me - list user's orders
 router.get('/me', verifyToken, async (req, res) => {
   try {
     const db = await connectToDatabase();

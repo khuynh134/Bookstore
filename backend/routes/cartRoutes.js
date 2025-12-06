@@ -56,6 +56,7 @@ router.get('/', verifyToken, async (req, res) => {
                 b.Title,
                 b.BookCoverURL,
                 ci.quantity,
+                b.Stock AS stock_quantity,
                 (ci.unit_price_cents / 100) AS unit_price,
                 (ci.quantity * (ci.unit_price_cents / 100)) AS line_total
 
@@ -83,6 +84,15 @@ router.post('/add', verifyToken, async (req, res) => {
 
     try{
         const db = await connectToDatabase();
+        // verify the book exists
+        const [books] = await db.query(
+            'SELECT BookID FROM book WHERE BookID = ?',
+            [book_id]
+        );
+
+        if(books.length === 0){
+            return  res.status(404).json({ message: 'Book not found' });
+        }
 
         // Get or create a cart for the user
         let [carts] = await db.query(
@@ -212,6 +222,7 @@ router.patch('/items/:itemId', verifyToken, async (req, res) => {
                 b.Title,
                 b.BookCoverURL,
                 ci.quantity,
+                b.Stock AS stock_quantity,
                 (ci.unit_price_cents / 100) AS unit_price,
                 (ci.quantity * (ci.unit_price_cents / 100)) AS line_total
 
