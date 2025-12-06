@@ -74,6 +74,7 @@
   display: block;       
   font-family: inherit;
   text-align: left; 
+  color:balck;
 }
 
 .review-textarea:focus {
