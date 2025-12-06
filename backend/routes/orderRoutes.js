@@ -223,7 +223,8 @@ router.get('/:orderId', verifyToken, async (req, res) => {
         created_at
       FROM orders
       WHERE order_id = ? AND user_id = ?
-      LIMIT 1`,
+      LIMIT 1
+      `,
       [orderId, userId]
     );
 

@@ -28,7 +28,7 @@ function Home() {
             <h2 className="Browse-title">Start Exploring</h2>
             <p>Use the categories below to quickly find what matters most to you.</p>
         </div>
-        <div className="parallax"></div> 
+        
         <div class="tile-container">
         
         {categories.map((category) => {

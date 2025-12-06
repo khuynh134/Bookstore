@@ -185,6 +185,14 @@ function Profile() {
                         >Order History</button>
 
                     </div>
+                    <div className="reviews-history">
+                        <h2 className = "review-info-header">Activity </h2>
+
+                        <button className="review-button"
+                        onClick={() => navigate('/review-history')}
+                        >My Review History</button>
+
+                    </div>
                 </>
             )}
         </div>

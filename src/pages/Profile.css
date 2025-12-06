@@ -1,11 +1,11 @@
 .profile-page{
     flex:1 ;
     padding: 1.5rem;
-    background-color: #F0D9D0;
+    background-color: #d6d9df;
 }
 
 .profile-title{
-    color: #DFA8A3;
+    color: #101B4B;
     font-size: 2.5rem;
     margin-bottom: 1rem;
     text-align: center;
@@ -15,19 +15,19 @@
 
 .profile-user-info{
     font-size: 1.2rem;
-    color: #A45A52;
+    color: #101B4B;
     text-align: left;
     font-weight: normal;
     line-height: 1.6;
     margin-bottom: 1.5rem;
 }
 
-.profile-info-header{
+.profile-info-header, .review-info-header{
     font-size: 1.5rem;
     font-weight: 850;
     margin-bottom: 1rem;
-    color: #7A3C37;
-    border-bottom: 2px solid #DFA8A3;
+    color: #101B4B;
+    border-bottom: 2px solid #A3A8B2;
     padding-bottom: 0.5rem;
     font-family: 'Newsreader', serif;
     text-align: left;
@@ -46,11 +46,11 @@
 .info-label{
     min-width:6rem;
     font-weight:700;
-    color: #7A3C37;
+    color: #545E85;
 }
 
 .info-value{
-    color:#5A2F2B;
+    color:#545E85;
     background:#fff7f6;
     padding:0.4rem 0.6rem;
     border-radius:6px;
@@ -60,10 +60,10 @@
     margin-top: 2rem;
 }
 
-.profile-button{
-    background-color: #DFA8A3;
-    color: white;
-    border: 1px solid #b38778;
+.profile-button,.review-button{
+    background-color: #F6D673;
+    color: black;
+    border: 1px solid black;
     padding: 0.5rem 1rem;
     border-radius: 5px;
     cursor: pointer;
@@ -72,7 +72,7 @@
 }
 
 .edit-profile-button:hover {
-    background-color: #c78b86;
+    background-color: #A3A8B2;
 }
 
 .no-orders-message{

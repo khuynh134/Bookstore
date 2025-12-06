@@ -18,6 +18,7 @@ import BookDetail from './pages/BookDetail';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import OrderHistory from './pages/OrderHistory';
 import OrderDetails from "./pages/OrderDetails";
+import ReviewHistory from './pages/ReviewHistory';
 
 
 function App() {
@@ -108,6 +109,8 @@ function InnerApp() {
             <Route path="/login" element={<Login />} />
             <Route path="/category/:category/:page" element = {<BooksOfCategory/>} />
             <Route path="/book/:bookID" element = {<BookDetail/>} />
+            <Route path="/review-history" element={isAuthenticated ? <ReviewHistory /> : <Navigate to="/login" replace />}
+/>
           </Routes>
         </main>
 

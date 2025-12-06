@@ -4,7 +4,7 @@
     padding: 1.5rem;
     width: 100%;
     box-sizing: border-box;
-    background-color: #f0d9d0ee;
+    background-color: #545E85;
     margin: 0 auto;
     max-width: 900px;
     border-radius: 8px;
@@ -12,7 +12,7 @@
 }
 
 .About-title {
-    color: #DFA8A3;
+    color: white;
     font-size: 2.5rem;
     margin-bottom: 1rem;
     text-align: center;
@@ -21,7 +21,7 @@
 }
 
 .About-subtitle {
-    color: #a57a9f;
+    color: white;
     font-size: 1.3rem;
     margin-bottom: 1rem;
     text-align: left;
@@ -31,7 +31,7 @@
 .About-description {
     font-size: 1.2rem;
     font-family:Verdana, Geneva, Tahoma, sans-serif;
-    color: #a57a9f;
+    color: white;
     text-align: left;
     font-weight: normal;
     line-height: 1.6;

@@ -9,6 +9,7 @@ function OrderDetails() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const navigate = useNavigate();
+  
 
   useEffect(() => {
     const fetchOrderDetails = async () => {
@@ -46,9 +47,34 @@ function OrderDetails() {
 
       <h1>Order #{order.order_id}</h1>
       <p>Placed on {new Date(order.created_at).toLocaleString()}</p>
-      <p>Status: <strong>{order.status}</strong></p>
+      <p> Payment Status: <strong>{order.payment_status}</strong> </p>
+      <p>Payment Method: {order.payment_brand}
+       {order.payment_last4 ? ` ending in ${order.payment_last4}` : ""}
+      </p>
+      
+      
+      {order.shipping_address && (
+      <div className="shipping-box">
+      <h3>Shipping Address</h3>
+      {(() => {
+       try {
+        const addr = JSON.parse(order.shipping_address);
+        return (
+          <>
+            <p>{addr.name}</p>
+            <p>{addr.street}</p>
+            <p>{addr.city}, {addr.state} {addr.zip}</p>
+            <p>{addr.country}</p>
+          </>
+        );
+      } catch {
+        return <p>(Invalid address format)</p>;
+      }
+      })()}
+     </div>
+     )}
 
-      <table>
+      <table className="order-table">
         <thead>
           <tr>
             <th>Image</th>

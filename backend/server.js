@@ -8,6 +8,7 @@ import authRouter from './routes/authRoutes.js';
 import searchRouter from './routes/searchRoutes.js';
 import cartRouter from './routes/cartRoutes.js';
 import ordersRouter from './routes/orderRoutes.js';
+import reviewRoutes from './routes/reviewRoutes.js';
 
 dotenv.config()
 
@@ -24,6 +25,7 @@ app.use('/auth', authRouter);
 
 app.use('/api/cart', cartRouter);
 app.use('/api/orders', ordersRouter);
+app.use('/api/reviews', reviewRoutes);
 
 const db = mysql.createConnection({
     host: process.env.DB_HOST,

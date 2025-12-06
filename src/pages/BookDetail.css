@@ -16,6 +16,7 @@
 .book-detail-left img{
     box-sizing: border-box;
     object-fit: contain;
+    margin-left:250px;
 }
 
 .book-detail-right{
@@ -60,3 +61,51 @@
     font-weight: bold;
     border-radius: 0.5rem;
 }   
+
+.review-textarea {
+  width: 70%;
+  height: 120px;
+  padding: 12px;
+  font-size: 14px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  resize: vertical;
+  margin: 10px 0;       
+  display: block;       
+  font-family: inherit;
+  text-align: left; 
+}
+
+.review-textarea:focus {
+  outline: none;
+  border-color: #4a67d6;
+  box-shadow: 0 0 6px rgba(74, 103, 214, 0.4);
+  background: white;
+}
+
+.book-review-section,
+.book-review-list, .rate-book-section  {
+  margin-left: 250px;  
+    
+}
+
+.review-submit{
+    background-color: #f6d673; 
+    border-color:black;
+}
+
+.reviews-title{
+    font-size: 1.5rem;            
+  font-weight: bold;
+  color: #101B4B;             
+  font-family: 'Newsreader', serif;  
+ 
+}
+
+.write-review-title, .rate-book-title{
+    font-size: 1.7rem;
+  font-weight: bold;
+  color: #101B4B;
+  font-family: 'Newsreader', serif;
+  margin-bottom: 10px;
+}
