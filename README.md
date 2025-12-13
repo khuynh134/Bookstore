@@ -1,4 +1,7 @@
 # Bookstore Inventory - React Web Application
+## Names of Team Members ##
+Kathy Huynh, Ying Huang, Valeria Campos
+
 
 A React web application built with Vite for managing bookstore inventory with navigation between pages.
 
