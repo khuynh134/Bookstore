@@ -1,16 +1,18 @@
 # Backend of Bookstore
 The backend uses express, cors, mysql2, and dotenv. Use the command npm install when needed.
-It is listening to the port 8081
+It is listening to the port 8081 by default, run with npm run dev.
+
+## Authors
+Kathy Huynh
+Ying Huang
+Valeria Campos
 
 ## Set the login information in .env file
 1. Copy the .env_example to .env, .env will not be uploaded to github.
 2. Change the DB_PASSWORD to your own password.
 3. Change the DB_USER if you are using a different user than root, check your mysql workbench
-4. Done
-
-## Seed.js
-seed.js will recreate the Book table in our database and insert a few books inside for testing.
-To run the script, use the command node seed.js
+4. Add JWT_KEY = "jwt-secret-key" as a new line
+5. Done
 
 ## Deal with MySQL server connection issue
 One possible problem encountered is that unable to connected to mySQL when start the backend/server.js.
@@ -31,9 +33,6 @@ npm install
 
 ## Running the backend 
 I mostly start the backend with line "npm run dev", but npm start should work for login and registering too 
-
-## Add JWT_KEY to .env file 
-In .env file add JWT_KEY = "jwt-secret-key" to your .env file. it is needed to sign and verify token when you are registering and signing in 
 
 ## for the following instruction only follow it if you are using a port that is not 8081 
 ## Making changes to Register.jsx for login & sign up if you are using a port that is NOT 8081
