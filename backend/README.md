@@ -3,8 +3,8 @@ The backend uses express, cors, mysql2, and dotenv. Use the command npm install 
 It is listening to the port 8081 by default, run with npm run dev.
 
 ## Authors
-Kathy Huynh
-Ying Huang
+Kathy Huynh, 
+Ying Huang, 
 Valeria Campos
 
 ## Set the login information in .env file
